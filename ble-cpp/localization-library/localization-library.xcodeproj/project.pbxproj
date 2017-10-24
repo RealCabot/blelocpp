@@ -7,6 +7,12 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		6BD43BAE1F9FCFDB00E0B457 /* Encoder.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6BD43BAD1F9FCFDB00E0B457 /* Encoder.cpp */; };
+		6BD43BAF1F9FCFDB00E0B457 /* Encoder.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6BD43BAD1F9FCFDB00E0B457 /* Encoder.cpp */; };
+		6BD43BB31F9FD3E700E0B457 /* EncoderWalkingState.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6BD43BB21F9FD3E700E0B457 /* EncoderWalkingState.cpp */; };
+		6BD43BB41F9FD3E700E0B457 /* EncoderWalkingState.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6BD43BB21F9FD3E700E0B457 /* EncoderWalkingState.cpp */; };
+		6BD43BB61F9FE2D000E0B457 /* EncoderInfo.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6BD43BB51F9FE2D000E0B457 /* EncoderInfo.cpp */; };
+		6BD43BB71F9FE2D000E0B457 /* EncoderInfo.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6BD43BB51F9FE2D000E0B457 /* EncoderInfo.cpp */; };
 		FB2450181C05835F00CC9BFB /* DataStoreImpl.cpp in Sources */ = {isa = PBXBuildFile; fileRef = FB2450161C05835F00CC9BFB /* DataStoreImpl.cpp */; };
 		FB2E8B101C22F01D00C5C45C /* CoordinateSystem.cpp in Sources */ = {isa = PBXBuildFile; fileRef = FB2E8B0F1C22F01D00C5C45C /* CoordinateSystem.cpp */; };
 		FB61058F1BF9BA1100657E20 /* StrongestBeaconFilter.cpp in Sources */ = {isa = PBXBuildFile; fileRef = FB61058D1BF9BA1100657E20 /* StrongestBeaconFilter.cpp */; };
@@ -143,6 +149,13 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		6BD43BAD1F9FCFDB00E0B457 /* Encoder.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = Encoder.cpp; sourceTree = "<group>"; };
+		6BD43BB01F9FCFE700E0B457 /* Encoder.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = Encoder.hpp; sourceTree = "<group>"; };
+		6BD43BB11F9FD3DE00E0B457 /* EncoderWalkingState.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = EncoderWalkingState.hpp; sourceTree = "<group>"; };
+		6BD43BB21F9FD3E700E0B457 /* EncoderWalkingState.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = EncoderWalkingState.cpp; sourceTree = "<group>"; };
+		6BD43BB51F9FE2D000E0B457 /* EncoderInfo.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = EncoderInfo.cpp; sourceTree = "<group>"; };
+		6BD43BB81F9FE2D800E0B457 /* EncoderInfo.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = EncoderInfo.hpp; sourceTree = "<group>"; };
+		6BD43BB91F9FFA3C00E0B457 /* LocException.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = LocException.hpp; sourceTree = "<group>"; };
 		FB2450161C05835F00CC9BFB /* DataStoreImpl.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; lineEnding = 0; path = DataStoreImpl.cpp; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.cpp; };
 		FB2450171C05835F00CC9BFB /* DataStoreImpl.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; lineEnding = 0; path = DataStoreImpl.hpp; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.cpp; };
 		FB24501C1C05CD0800CC9BFB /* SerializeUtils.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = SerializeUtils.hpp; sourceTree = "<group>"; };
@@ -352,12 +365,15 @@
 		FB37300F1BCF964200EFFC14 /* core */ = {
 			isa = PBXGroup;
 			children = (
+				6BD43BB91F9FFA3C00E0B457 /* LocException.hpp */,
 				FB684E4B1BD760BE00F1A21C /* Acceleration.hpp */,
 				FB684E4A1BD760BE00F1A21C /* Acceleration.cpp */,
 				FB684E4D1BD760BE00F1A21C /* Attitude.hpp */,
 				FB684E4C1BD760BE00F1A21C /* Attitude.cpp */,
 				FB684E4F1BD760BE00F1A21C /* Beacon.hpp */,
 				FB684E4E1BD760BE00F1A21C /* Beacon.cpp */,
+				6BD43BB81F9FE2D800E0B457 /* EncoderInfo.hpp */,
+				6BD43BB51F9FE2D000E0B457 /* EncoderInfo.cpp */,
 				FB684E501BD760BE00F1A21C /* bleloc.h */,
 				FB684E561BD760BE00F1A21C /* Location.hpp */,
 				FB684E551BD760BE00F1A21C /* Location.cpp */,
@@ -403,12 +419,16 @@
 		FB37306F1BD0A7EB00EFFC14 /* sensor */ = {
 			isa = PBXGroup;
 			children = (
+				6BD43BB01F9FCFE700E0B457 /* Encoder.hpp */,
+				6BD43BAD1F9FCFDB00E0B457 /* Encoder.cpp */,
 				FB684E9F1BD7614900F1A21C /* Pedometer.hpp */,
 				FBCDA4B21BEA32E000EEDBFB /* PedometerWalkingState.hpp */,
 				FBCDA4B11BEA32E000EEDBFB /* PedometerWalkingState.cpp */,
 				FB684E9C1BD7614900F1A21C /* OrientationMeter.hpp */,
 				FBFC7B991BD8F19A0023F70F /* OrientationMeterAverage.cpp */,
 				FBFC7B9A1BD8F19A0023F70F /* OrientationMeterAverage.hpp */,
+				6BD43BB11F9FD3DE00E0B457 /* EncoderWalkingState.hpp */,
+				6BD43BB21F9FD3E700E0B457 /* EncoderWalkingState.cpp */,
 			);
 			name = sensor;
 			path = ../src/sensor;
@@ -670,7 +690,9 @@
 				FB6105981BF9D60E00657E20 /* GaussianProcess.cpp in Sources */,
 				FB84B6D61C0DB9BC00EE3489 /* LazyDataStore.cpp in Sources */,
 				FB84B6D21C0D953800EE3489 /* CleansingBeaconFilter.cpp in Sources */,
+				6BD43BB31F9FD3E700E0B457 /* EncoderWalkingState.cpp in Sources */,
 				FB2450181C05835F00CC9BFB /* DataStoreImpl.cpp in Sources */,
+				6BD43BB61F9FE2D000E0B457 /* EncoderInfo.cpp in Sources */,
 				FBCDA4B31BEA32E000EEDBFB /* PedometerWalkingState.cpp in Sources */,
 				FB684E641BD760BE00F1A21C /* Attitude.cpp in Sources */,
 				FB6B11E31BF5C6E1008BE650 /* KernelFunction.cpp in Sources */,
@@ -678,6 +700,7 @@
 				FB61058F1BF9BA1100657E20 /* StrongestBeaconFilter.cpp in Sources */,
 				FBE664AF1C96C7120044386E /* BeaconFilterChain.cpp in Sources */,
 				FBE6645E1C969FD70044386E /* MetropolisSampler.cpp in Sources */,
+				6BD43BAE1F9FCFDB00E0B457 /* Encoder.cpp in Sources */,
 				FB684E971BD7613F00F1A21C /* RandomWalker.cpp in Sources */,
 				FBCDA4AE1BE9AF9D00EEDBFB /* GaussianProcessLDPLMultiModel.cpp in Sources */,
 				FBF3477B1BD4E91F00A25F38 /* VirtualDevice.cpp in Sources */,
@@ -712,6 +735,7 @@
 				FBE664751C96A1240044386E /* GridResampler.cpp in Sources */,
 				FBE664761C96A1240044386E /* StreamParticleFilter.cpp in Sources */,
 				FBE664B01C96C7120044386E /* BeaconFilterChain.cpp in Sources */,
+				6BD43BAF1F9FCFDB00E0B457 /* Encoder.cpp in Sources */,
 				FBE664AC1C96C2FA0044386E /* StreamParticleFilterBuilder.cpp in Sources */,
 				FBE664771C96A1240044386E /* Location.cpp in Sources */,
 				FBE664781C96A1240044386E /* GaussianProcess.cpp in Sources */,
@@ -719,10 +743,12 @@
 				FBE6647A1C96A1240044386E /* CleansingBeaconFilter.cpp in Sources */,
 				FBE6647B1C96A1240044386E /* DataStoreImpl.cpp in Sources */,
 				FBE6647C1C96A1240044386E /* PedometerWalkingState.cpp in Sources */,
+				6BD43BB41F9FD3E700E0B457 /* EncoderWalkingState.cpp in Sources */,
 				FBE6647D1C96A1240044386E /* Attitude.cpp in Sources */,
 				FBE6647E1C96A1240044386E /* KernelFunction.cpp in Sources */,
 				FBE6647F1C96A1240044386E /* StatusInitializerImpl.cpp in Sources */,
 				FBE664A31C96A4B10044386E /* main.cpp in Sources */,
+				6BD43BB71F9FE2D000E0B457 /* EncoderInfo.cpp in Sources */,
 				FBE664801C96A1240044386E /* StrongestBeaconFilter.cpp in Sources */,
 				FBE664811C96A1240044386E /* MetropolisSampler.cpp in Sources */,
 				FBE664821C96A1240044386E /* RandomWalker.cpp in Sources */,

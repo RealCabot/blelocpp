@@ -27,10 +27,8 @@ namespace loc{
     PedometerWalkingState::PedometerWalkingState(PedometerWalkingStateParameters parameters){
         mParameters = parameters;
     }
-    
 
     PedometerWalkingState& PedometerWalkingState::putAcceleration(Acceleration acceleration){
-        
         long timestamp = acceleration.timestamp();
         if(prevUpdateTime==0){
             prevUpdateTime = timestamp;
@@ -82,7 +80,8 @@ namespace loc{
         if( dTime >= mParameters.updatePeriod()){
             prevUpdateTime = timestamp;
             isUpdated_ = true;
-        }else{
+        }
+        else{
             isUpdated_ = false;
         }
         

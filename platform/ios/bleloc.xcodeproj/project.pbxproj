@@ -262,6 +262,8 @@
 /* Begin PBXFileReference section */
 		308D6E89343F046D8CCC70C3 /* Pods-bleloc.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-bleloc.release.xcconfig"; path = "Pods/Target Support Files/Pods-bleloc/Pods-bleloc.release.xcconfig"; sourceTree = "<group>"; };
 		5D651D528829A828244BD797 /* libPods-bleloc.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-bleloc.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		6BD43BBA1F9FFBA700E0B457 /* EncoderInfo.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = EncoderInfo.cpp; path = "../../../../blelocpp-chris/ble-cpp/src/core/EncoderInfo.cpp"; sourceTree = "<group>"; };
+		6BD43BBB1F9FFBB400E0B457 /* EncoderInfo.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; name = EncoderInfo.hpp; path = "../../../../blelocpp-chris/ble-cpp/src/core/EncoderInfo.hpp"; sourceTree = "<group>"; };
 		7654A1CA9FFCCD15F8AD65D2 /* Pods-blelocjni.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-blelocjni.release.xcconfig"; path = "Pods/Target Support Files/Pods-blelocjni/Pods-blelocjni.release.xcconfig"; sourceTree = "<group>"; };
 		7E6F24C61C0F1D76007A97A1 /* BaseBeaconFilter.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = BaseBeaconFilter.hpp; sourceTree = "<group>"; };
 		7E6F24C71C0F1D76007A97A1 /* BeaconFilter.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = BeaconFilter.hpp; sourceTree = "<group>"; };
@@ -479,6 +481,8 @@
 		7E6F24CC1C0F1D76007A97A1 /* core */ = {
 			isa = PBXGroup;
 			children = (
+				6BD43BBB1F9FFBB400E0B457 /* EncoderInfo.hpp */,
+				6BD43BBA1F9FFBA700E0B457 /* EncoderInfo.cpp */,
 				FBC2B5081D956CE400E09B16 /* LocException.hpp */,
 				7E6F24CD1C0F1D76007A97A1 /* Acceleration.cpp */,
 				7E6F24CE1C0F1D76007A97A1 /* Acceleration.hpp */,
@@ -1025,13 +1029,16 @@
 			files = (
 			);
 			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
 			);
 			name = "[CP] Check Pods Manifest.lock";
 			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-bleloc-checkManifestLockResult.txt",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
 		};
 		9434ED5E19CFC706D080F6FF /* [CP] Copy Pods Resources */ = {
@@ -1070,13 +1077,16 @@
 			files = (
 			);
 			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
 			);
 			name = "[CP] Check Pods Manifest.lock";
 			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-blelocjni-checkManifestLockResult.txt",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
 		};
 		F5027DAA1C0BEE9F0027329C /* ShellScript */ = {

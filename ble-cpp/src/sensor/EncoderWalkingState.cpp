@@ -51,51 +51,6 @@ namespace loc
         else {
             nSteps = 0;
         }
-        /*double ax = acceleration.ax();
-        double ay = acceleration.ay();
-        double az = acceleration.az();*/
-        
-        /*double amp = G*std::sqrt(ax*ax + ay*ay + az*az);
-        double diffAmp = amp - G;*/
-        
-        /*amplitudesQueue.push_back(diffAmp);
-        if(amplitudesQueue.size() > queue_limit)
-        {
-            amplitudesQueue.pop_front();
-        }
-        if(amplitudesQueue.size() < queue_min)
-        {
-            nSteps = 0.0;
-        }
-        else
-        {
-            size_t n = amplitudesQueue.size();
-            double mean = 0;
-            double variance = 0;
-            
-            for(size_t i = 0; i < n; i++)
-            {
-                mean += amplitudesQueue[i];
-            }
-            mean/=n;
-            
-            for(size_t i = 0; i < n ; i++)
-            {
-                double diff = (amplitudesQueue[i] - mean);
-                variance += diff*diff;
-            }
-            variance /= n;
-            double std = sqrt(variance);
-            
-            if(std > mParameters.walkDetectSigmaThreshold())
-            {
-                nSteps = nStepsConst;
-            }
-            else
-            {
-                nSteps = 0.0;
-            }
-        }*/
         
         double dTime = (timestamp-prevUpdateTime)/1000.0;
         if( dTime >= mParameters.updatePeriod())
@@ -121,7 +76,6 @@ namespace loc
     void EncoderWalkingState::reset() {
         prevUpdateTime = 0;
         isUpdated_ = false;
-        amplitudesQueue.clear();
     }
 }
 

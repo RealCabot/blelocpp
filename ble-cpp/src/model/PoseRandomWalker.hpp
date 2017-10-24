@@ -35,6 +35,7 @@
 #include "OrientationMeter.hpp"
 #include "RandomGenerator.hpp"
 #include "Pose.hpp"
+#include "EncoderInfo.hpp"  // get encoderInfo
 
 namespace loc{
     

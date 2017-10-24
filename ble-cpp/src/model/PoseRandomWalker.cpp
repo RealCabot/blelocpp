@@ -49,7 +49,6 @@ namespace loc{
     }
     
     State PoseRandomWalker::predict(State state, SystemModelInput input){
-        
         //long timestamp = input.timestamp;
         //long previousTimestamp = input.previousTimestamp;
         double dTime = (input.timestamp()-input.previousTimestamp())/(1000.0); //[s] Difference in time
