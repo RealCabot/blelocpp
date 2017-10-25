@@ -37,6 +37,8 @@
 #include "BeaconFilter.hpp"
 #include "AltitudeManager.hpp"
 
+#include "EncoderInfo.hpp"
+
 namespace loc {
     
     enum FloorUpdateMode{
@@ -181,7 +183,7 @@ namespace loc {
         StreamParticleFilter& updateHandler(void (*functionCalledAfterUpdate)(void*, Status*), void* inUserData) override;
         
         // method to input sensor data
-        StreamParticleFilter& putAcceleration(const Acceleration acceleration) override;
+        StreamParticleFilter& putAcceleration(const EncoderInfo encoderInfo) override;
         StreamParticleFilter& putAttitude(const Attitude attitude) override;
         StreamParticleFilter& putBeacons(const Beacons beacons) override;
         StreamParticleFilter& putLocalHeading(const LocalHeading heading) override;

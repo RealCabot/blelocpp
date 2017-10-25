@@ -28,6 +28,8 @@
 #include "Altimeter.hpp"
 #include "Heading.hpp"
 
+#include "EncoderInfo.hpp"
+
 namespace loc {
     class StreamLocalizer{
     public:
@@ -36,7 +38,7 @@ namespace loc {
         virtual StreamLocalizer& updateHandler(void (*functionCalledAfterUpdate)(Status*)) = 0;
         virtual StreamLocalizer& updateHandler(void (*functionCalledAfterUpdate)(void*, Status*), void* inUserData) = 0;
         
-        virtual StreamLocalizer& putAcceleration(const Acceleration acceleration) = 0;
+        virtual StreamLocalizer& putAcceleration(const EncoderInfo encoderInfo) = 0;
         virtual StreamLocalizer& putAttitude(const Attitude attitude) = 0;
         virtual StreamLocalizer& putBeacons(const Beacons beacons) = 0;
         virtual StreamLocalizer& putLocalHeading(const LocalHeading heading) = 0;

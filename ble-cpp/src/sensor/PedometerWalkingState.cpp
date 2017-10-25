@@ -21,15 +21,18 @@
  *******************************************************************************/
 
 #include "PedometerWalkingState.hpp"
+#include "EncoderInfo.hpp"
 
-namespace loc{
+namespace loc
+{
     
     PedometerWalkingState::PedometerWalkingState(PedometerWalkingStateParameters parameters){
         mParameters = parameters;
     }
 
-    PedometerWalkingState& PedometerWalkingState::putAcceleration(Acceleration acceleration){
-        long timestamp = acceleration.timestamp();
+    PedometerWalkingState& PedometerWalkingState::putAcceleration(EncoderInfo encoderInfo){
+        long timestamp = encoderInfo.getTimeStamp();
+        
         if(prevUpdateTime==0){
             prevUpdateTime = timestamp;
         }
@@ -39,7 +42,15 @@ namespace loc{
             this->reset();
         }
         
-        double ax = acceleration.ax();
+        // need to test this out, don't know what a good threshold is
+        if (encoderInfo.getVelocity() > 0.5) {
+            nSteps = nStepsConst;
+        }
+        else {
+            nSteps = 0;
+        }
+        
+        /*double ax = acceleration.ax();
         double ay = acceleration.ay();
         double az = acceleration.az();
         
@@ -74,9 +85,9 @@ namespace loc{
             }else{
                 nSteps = 0.0;
             }
-        }
-        
+        }*/
         double dTime = (timestamp-prevUpdateTime)/1000.0;
+        
         if( dTime >= mParameters.updatePeriod()){
             prevUpdateTime = timestamp;
             isUpdated_ = true;

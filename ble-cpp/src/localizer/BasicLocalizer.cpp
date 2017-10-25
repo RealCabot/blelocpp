@@ -110,20 +110,23 @@ namespace loc{
         mLocalizer->putAttitude(altTmp);
         return *this;
     }
-    StreamLocalizer& BasicLocalizer::putAcceleration(const Acceleration acceleration) {
+    StreamLocalizer& BasicLocalizer::putAcceleration(const EncoderInfo encoderInfo) {
         if (!isReady) {
             return *this;
         }
         if (mFunctionCalledToLog) {
-            mFunctionCalledToLog(mUserDataToLog, LogUtil::toString(acceleration));
+            mFunctionCalledToLog(mUserDataToLog, LogUtil::toString(encoderInfo));
         }
         if (!isTrackingLocalizer()) {
             return *this;
         }
         else{
-            Acceleration accTmp = acceleration;
+            EncoderInfo accTmp = encoderInfo;  // changed by chris
             if(mDisableAcceleration){
-                accTmp.ax(0.0)->ay(0.0)->az(0.0);
+                // accTmp.ax(0.0)->ay(0.0)->az(0.0);
+                // disable speed and position instead?
+                accTmp.setPosition(0);
+                accTmp.setVelocity(0);
             }
             if(mLocationStatus==Status::STABLE or mLocationStatus==Status::UNSTABLE){
                 mLocalizer->putAcceleration(accTmp);

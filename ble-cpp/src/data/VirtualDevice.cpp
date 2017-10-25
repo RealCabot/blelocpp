@@ -74,8 +74,8 @@ namespace loc{
     Status VirtualDevice::update(Status status, std::string strBuffer){
         
         if(DataUtils::csvCheckAcceleration(strBuffer)){
-            Acceleration acc = DataUtils::parseAccelerationCSV(strBuffer);
-            mStreamLocalizer->putAcceleration(acc);
+            // EncoderInfo acc = DataUtils::parseAccelerationCSV(strBuffer); // modified for encoder
+            // mStreamLocalizer->putAcceleration(acc);
         }else if(DataUtils::csvCheckAttitude(strBuffer)){
             Attitude att = DataUtils::parseAttitudeCSV(strBuffer);
             mStreamLocalizer->putAttitude(att);
@@ -93,9 +93,9 @@ namespace loc{
         return Status(*statusUpdated);
     }
     
-    void VirtualDevice::processLine(std::string strBuffer){
+    /*void VirtualDevice::processLine(std::string strBuffer){   // commented out by chris
         if(DataUtils::csvCheckAcceleration(strBuffer)){
-            Acceleration acc = DataUtils::parseAccelerationCSV(strBuffer);
+            Acceleration acc = DataUtils::parseAccelerationCSV(strBuffer);  // changed by Chris
             mStreamLocalizer->putAcceleration(acc);
             Status* status = mStreamLocalizer->getStatus();
             static std::shared_ptr<Pose> posePred;
@@ -160,7 +160,7 @@ namespace loc{
                 wasReset = true;
             }
         }
-    }
+    }*/
     
     void VirtualDevice::run(){
         char*cwd = getcwd(NULL, 0);

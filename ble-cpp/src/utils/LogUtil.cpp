@@ -27,6 +27,8 @@
 #include <sstream>
 #include <iostream>
 
+#include "EncoderInfo.hpp"
+
 using namespace std;
 using namespace loc;
 
@@ -41,10 +43,10 @@ string LogUtil::toString(const Beacons& beacons) {
     return buffer.str();
 }
 
-string LogUtil::toString(const Acceleration& acc) {
+string LogUtil::toString(const EncoderInfo& en) {
     std::stringbuf buffer;
     std::ostream os (&buffer);
-    os << "Acc," << acc.ax() << "," << acc.ay() << "," << acc.az() << "," << acc.timestamp();
+    os << "EI," << en.getPosition() << "," << en.getVelocity() << "," << en.getVeloThresh() << "," << en.getTimeStamp();
     return buffer.str();
 }
 

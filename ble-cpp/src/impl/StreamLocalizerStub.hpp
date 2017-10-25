@@ -34,7 +34,7 @@ namespace loc {
         StreamLocalizerStub();
         ~StreamLocalizerStub();
 
-        StreamLocalizer& putAcceleration(const Acceleration acceleration) override;
+        StreamLocalizer& putAcceleration(const EncoderInfo encoderInfo) override;
         StreamLocalizer& putAttitude(const Attitude attitude) override;
         StreamLocalizer& putBeacons(const Beacons beacons) override;
         virtual StreamLocalizer& putLocalHeading(const LocalHeading heading) override;

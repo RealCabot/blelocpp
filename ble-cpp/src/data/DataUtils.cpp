@@ -38,6 +38,8 @@
 #include <boost/archive/iterators/binary_from_base64.hpp>
 #include <boost/archive/iterators/transform_width.hpp>
 
+#include "EncoderInfo.hpp"
+
 //http://stackoverflow.com/questions/10521581/base64-encode-using-boost-throw-exception
 using namespace boost::archive::iterators;
 typedef
@@ -90,14 +92,15 @@ namespace loc{
         return csvCheckSensorType(str, "Beacon");
     }
     
-    template<class T> T DataUtils::parseCSVSensorData(const std::string& str){
+    /*template<class T> T DataUtils::parseCSVSensorData(const std::string& str){   // commented out by chris
         std::list<std::string> stringList = splitAndTrimCSV(str);
         std::list<std::string>::iterator iter;
-        int i=0;
-        long timestamp=0L;
+        int i = 0;
+        long timeStamp = 0L;
         double x=0 , y=0, z=0;
+        float velocity;
         
-        for( iter= stringList.begin(); iter!=stringList.end(); iter++){
+        for( iter = stringList.begin(); iter!=stringList.end(); iter++){
             //std::cout << *iter << std::endl;
             if(i==0) timestamp = std::stol(*iter);
             if(i==2) x = std::stod(*iter);
@@ -108,15 +111,18 @@ namespace loc{
         
         T data(timestamp, x, y, z);
         return data;
-    }
+    }*/
     
-    template Acceleration DataUtils::parseCSVSensorData<Acceleration>(const std::string& str);
+    /*template EncoderInfo DataUtils::parseCSVSensorData<EncoderInfo>(const std::string& str);  // changed by chris
+    
     template Attitude DataUtils::parseCSVSensorData<Attitude>(const std::string& str);
     
     
     Acceleration DataUtils::parseAccelerationCSV(const std::string& str){
-        return parseCSVSensorData<Acceleration>(str);
-    }
+        // return parseCSVSensorData<Acceleration>(str);
+        return parseCSVSensorData<EncoderInfo>(str);  // changed by Chris
+
+    }*/
     
     Attitude DataUtils::parseAttitudeCSV(const std::string& str){
         return parseCSVSensorData<Attitude>(str);

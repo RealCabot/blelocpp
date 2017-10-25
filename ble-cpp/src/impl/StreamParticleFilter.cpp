@@ -328,16 +328,16 @@ namespace loc{
             }
         }
 
-        void putAcceleration(const Acceleration acceleration){
+        void putAcceleration(const EncoderInfo encoderInfo){
             initializeStatusIfZero();
             status->step(Status::OTHER);
             
-            mPedometer->putAcceleration(acceleration);
+            mPedometer->putAcceleration(encoderInfo);
             accelerationIsUpdated = mPedometer->isUpdated();
 
             // TODO (Tentative implementation)
             if(accelerationIsUpdated && attitudeIsUpdated){
-                predictMotionState(acceleration.timestamp());
+                predictMotionState(encoderInfo.getTimeStamp());
             }
 
         }
@@ -1214,8 +1214,9 @@ namespace loc{
 
     StreamParticleFilter::~StreamParticleFilter(){}
 
-    StreamParticleFilter& StreamParticleFilter::putAcceleration(const Acceleration acceleration){
-        impl->putAcceleration(acceleration);
+    // should I be changing this parameter?
+    StreamParticleFilter& StreamParticleFilter::putAcceleration(const EncoderInfo encoderInfo) {
+        impl->putAcceleration(encoderInfo);
         return *this;
     }
 

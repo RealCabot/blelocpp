@@ -25,6 +25,7 @@
 
 #include <stdio.h>
 #include "bleloc.h"
+#include "EncoderInfo.hpp"
 
 namespace loc{
     
@@ -34,7 +35,9 @@ namespace loc{
         
         virtual ~Pedometer(){}
 
-        virtual Pedometer& putAcceleration(Acceleration acceleration) = 0;
+        // virtual Pedometer& putAcceleration(Acceleration acceleration) = 0;
+        virtual Pedometer& putAcceleration(EncoderInfo encoderInfo) = 0;
+
         virtual bool isUpdated() = 0;
         virtual double getNSteps() = 0;
         virtual void reset() = 0;

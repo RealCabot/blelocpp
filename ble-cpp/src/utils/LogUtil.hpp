@@ -28,8 +28,10 @@
 #include "Acceleration.hpp"
 #include "Altimeter.hpp"
 #include "Heading.hpp"
+#include "EncoderInfo.hpp"
 
-namespace loc {
+namespace loc
+{
     class LogUtil {
     public:
         
@@ -42,7 +44,7 @@ namespace loc {
         /*
          * "Acc",ax,ay,az,timestamp
          */
-        static std::string toString(const Acceleration& acc);
+        static std::string toString(const EncoderInfo& encoderInfo);  // changed by chris
         static Acceleration toAcceleration(std::string str);
         
         /*

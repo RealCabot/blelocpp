@@ -63,6 +63,8 @@
 #include "SerializeUtils.hpp"
 #include "LatLngConverter.hpp"
 
+#include "EncoderInfo.hpp"
+
 #define N_SMOOTH_MAX 10
 
 namespace loc {
@@ -418,7 +420,7 @@ namespace loc {
         StreamLocalizer& logHandler(void (*functionCalledToLog)(void*, std::string), void* inUserData);
 
         StreamLocalizer& putAttitude(const Attitude attitude) override;
-        StreamLocalizer& putAcceleration(const Acceleration acceleration) override;
+        StreamLocalizer& putAcceleration(const EncoderInfo encoder) override;
         StreamLocalizer& putBeacons(const Beacons beacons) override;
         // StreamLocalizer& putWiFiAPs(const WiFiAPs wifiaps) override;
         StreamLocalizer& putLocalHeading(const LocalHeading heading) override;

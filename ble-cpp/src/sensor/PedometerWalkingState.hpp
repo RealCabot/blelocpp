@@ -27,6 +27,7 @@
 #include <deque>
 #include <mutex>
 #include "Pedometer.hpp"
+#include "EncoderInfo.hpp"
 
 namespace loc{
     
@@ -91,7 +92,8 @@ namespace loc{
         PedometerWalkingState(PedometerWalkingStateParameters parameters);
         ~PedometerWalkingState(){}
         
-        PedometerWalkingState& putAcceleration(Acceleration acceleration) override;
+        //PedometerWalkingState& putAcceleration(Acceleration acceleration) override;
+        PedometerWalkingState& putAcceleration(EncoderInfo encoderInfo) override;
         bool isUpdated() override;
         double getNSteps() override;
         void reset() override;

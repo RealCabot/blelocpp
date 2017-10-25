@@ -38,7 +38,7 @@ namespace loc{
         }
     }
     
-    StreamLocalizer& StreamLocalizerStub::putAcceleration(const Acceleration acceleration){
+    StreamLocalizer& StreamLocalizerStub::putAcceleration(const EncoderInfo encoderInfo){
         updateStateStub();
         callback(status);
         return *this;
