@@ -56,16 +56,16 @@ public:
     }
 };
     
-    template<class Ts, class Tin> class SystemModel{
+    template<class Ts, class Tin, class Tin2> class SystemModel{  // changed by Chris
     public:
         
-        using Ptr = std::shared_ptr<SystemModel<Ts, Tin>>;
+        using Ptr = std::shared_ptr<SystemModel<Ts, Tin, Tin2>>;
         
         virtual ~SystemModel(){}
         
         //virtual SystemModel<Ts, Tin, Tproperty>* setProperty(Tproperty property) = 0;
-        virtual Ts predict(Ts state, Tin input) = 0;
-        virtual std::vector<Ts> predict(std::vector<Ts> states, Tin input)  = 0;
+        virtual Ts predict(Ts state, Tin input, Tin2 encoderInfo) = 0;  // changed by Chris
+        virtual std::vector<Ts> predict(std::vector<Ts> states, Tin input, Tin2 encoderInfo)  = 0;  // changed by Chris
         //virtual std::vector<Ts>* predict(std::vector<Ts> states) = 0;
         
         virtual void startPredictions(const std::vector<Ts>& states, const Tin& input){

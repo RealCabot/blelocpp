@@ -146,16 +146,16 @@ namespace loc{
         }
     };
     
-    template<class Tstate, class Tinput>
-    class SystemModelInBuilding: public SystemModel<Tstate, Tinput>{
+    template<class Tstate, class Tinput, class Tin2>
+    class SystemModelInBuilding: public SystemModel<Tstate, Tinput, Tin2>{
         
     public:
-        using SystemModelT = SystemModel<Tstate, Tinput>;
+        using SystemModelT = SystemModel<Tstate, Tinput, Tin2>;
         using Ptr = std::shared_ptr<SystemModelInBuilding>;
         
     private:
         RandomGenerator mRandomGenerator;
-        typename SystemModel<Tstate, Tinput>::Ptr mSysModel;
+        typename SystemModel<Tstate, Tinput, Tin2>::Ptr mSysModel;
         Building::Ptr mBuilding;
         SystemModelInBuildingProperty::Ptr mProperty;
         AltitudeManager::Ptr mAltManager;
@@ -163,7 +163,7 @@ namespace loc{
         Tstate moveOnElevator(const Tstate& state, Tinput input);
         Tstate moveOnStair(const Tstate& state, Tinput input);
         Tstate moveOnEscalator(const Tstate& state, Tinput input);
-        Tstate moveOnFloor(const Tstate& state, Tinput input);
+        Tstate moveOnFloor(const Tstate& state, Tinput input, Tin2 encoderInfo);
         Tstate moveOnFloorRetry(const Tstate& state, const Tstate& stateNew,  Tinput input);
         Tstate moveFloorJump(const Tstate& state, Tinput input);
         
@@ -179,8 +179,8 @@ namespace loc{
         SystemModelInBuilding& property(SystemModelInBuildingProperty::Ptr property);
         SystemModelInBuilding& altitudeManager(AltitudeManager::Ptr altManager);
         
-        Tstate predict(Tstate state, Tinput input) override;
-        std::vector<Tstate> predict(std::vector<Tstate> states, Tinput input) override;
+        Tstate predict(Tstate state, Tinput input , Tin2 encoderInfo) override;
+        std::vector<Tstate> predict(std::vector<Tstate> states, Tinput input, Tin2 encoderInfo) override;
         
         virtual void notifyObservationUpdated() override;
         
@@ -189,7 +189,7 @@ namespace loc{
     // This class is retained for compatibility.
     using PoseRandomWalkerInBuildingProperty = SystemModelInBuildingProperty;
     
-    class PoseRandomWalkerInBuilding: public SystemModelInBuilding<State, SystemModelInput>{
+    class PoseRandomWalkerInBuilding: public SystemModelInBuilding<State, SystemModelInput, EncoderInfo>{
         
     public:
         using Ptr = std::shared_ptr<PoseRandomWalkerInBuilding>;
@@ -197,11 +197,11 @@ namespace loc{
         virtual ~PoseRandomWalkerInBuilding() = default;
         
         virtual void poseRandomWalkerInBuildingProperty(SystemModelInBuildingProperty::Ptr property){
-            SystemModelInBuilding<State, SystemModelInput>::property(property);
+            SystemModelInBuilding<State, SystemModelInput, EncoderInfo>::property(property);
         }
         
-        virtual void poseRandomWalker(typename SystemModel<State, SystemModelInput>::Ptr sysModel){
-            SystemModelInBuilding<State, SystemModelInput>::systemModel(sysModel);
+        virtual void poseRandomWalker(typename SystemModel<State, SystemModelInput, EncoderInfo>::Ptr sysModel){
+            SystemModelInBuilding<State, SystemModelInput, EncoderInfo>::systemModel(sysModel);
         }
         
     };

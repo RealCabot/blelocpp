@@ -168,7 +168,7 @@ namespace loc {
         StreamParticleFilter& orientationMeter(std::shared_ptr<OrientationMeter>  orientationMeter);
         StreamParticleFilter& altitudeManager(std::shared_ptr<AltitudeManager>  altitudeManager);
         StreamParticleFilter& statusInitializer(std::shared_ptr<StatusInitializer> statusInitializer);
-        StreamParticleFilter& systemModel(std::shared_ptr<SystemModel<State, SystemModelInput>> poseRandomWalker);
+        StreamParticleFilter& systemModel(std::shared_ptr<SystemModel<State, SystemModelInput, EncoderInfo>> poseRandomWalker);
         StreamParticleFilter& observationModel(std::shared_ptr<ObservationModel<State, Beacons>> observationModel);
         StreamParticleFilter& resampler(std::shared_ptr<Resampler<State>> resampler);
         

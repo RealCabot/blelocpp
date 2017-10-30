@@ -34,6 +34,7 @@ namespace loc
             long timeStamp_;
             float position_;
             float velocity_;
+            // float veloThresh;
         
         public:
             EncoderInfo(long timestamp, float position, float velocity);

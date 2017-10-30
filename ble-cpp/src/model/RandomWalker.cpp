@@ -24,22 +24,24 @@
 #include "PoseRandomWalker.hpp"
 #include <random>
 
+#include "EncoderInfo.hpp"
+
 namespace loc{
     
-    template<class Ts, class Tin>
-    RandomWalker<Ts, Tin>& RandomWalker<Ts, Tin>::setProperty(RandomWalkerProperty property){
+    template<class Ts, class Tin, class Tin2>
+    RandomWalker<Ts, Tin, Tin2>& RandomWalker<Ts, Tin, Tin2>::setProperty(RandomWalkerProperty property){
         mRWProperty.reset(new RandomWalkerProperty(property));
         return *this;
     }
     
-    template<class Ts, class Tin>
-    RandomWalker<Ts, Tin>& RandomWalker<Ts, Tin>::setProperty(RandomWalkerProperty::Ptr property){
+    template<class Ts, class Tin, class Tin2>
+    RandomWalker<Ts, Tin, Tin2>& RandomWalker<Ts, Tin, Tin2>::setProperty(RandomWalkerProperty::Ptr property){
         mRWProperty = property;
         return *this;
     }
     
-    template<class Ts, class Tin>
-    Ts RandomWalker<Ts, Tin>::predict(Ts loc, Tin input){
+    template<class Ts, class Tin, class Tin2>
+    Ts RandomWalker<Ts, Tin, Tin2>::predict(Ts loc, Tin input, Tin2 encoderInfo){
         double x = loc.x();
         double y = loc.y();
         double z = loc.z();
@@ -53,12 +55,12 @@ namespace loc{
         return locNew;
     }
     
-    template<class Ts, class Tin>
-    std::vector<Ts> RandomWalker<Ts, Tin>::predict(std::vector<Ts> locations, Tin input){
+    template<class Ts, class Tin, class Tin2>
+    std::vector<Ts> RandomWalker<Ts, Tin, Tin2>::predict(std::vector<Ts> locations, Tin input, Tin2 encoderInfo){
         std::vector<Ts> locsNew;
         this->startPredictions(locations, input);
         for(Ts loc: locations){
-            Ts locNew = predict(loc, input);
+            Ts locNew = predict(loc, input, encoderInfo);
             locsNew.push_back(locNew);
         }
         this->endPredictions(locations, input);

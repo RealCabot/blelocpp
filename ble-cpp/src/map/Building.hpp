@@ -72,7 +72,7 @@ namespace loc {
     
     class BuildingBuilder{
     private:
-        std::map<int, CoordinateSystemParameters> mFloorCoordinateSystemParametersMap;
+        std::map<int, CoordinateSystemParameters> mFloorCoordinateSystemParametersMap;  // map is a hash table
         std::map<int, std::string> mFloorImagePathMap;
     public:
         BuildingBuilder& addFloorCoordinateSystemParametersAndImagePath(int floor_num, CoordinateSystemParameters coordinateSystemParameters, std::string imagePath);

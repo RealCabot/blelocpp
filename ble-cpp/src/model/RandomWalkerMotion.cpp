@@ -22,12 +22,13 @@
 
 #include "RandomWalkerMotion.hpp"
 #include "PoseRandomWalker.hpp"
+#include "EncoderInfo.hpp"
 
 namespace loc{
     
-    template<class Ts, class Tin>
-    Ts RandomWalkerMotion<Ts, Tin>::predict(Ts state, Tin input){
-        auto& mRandGen = RandomWalker<Ts, Tin>::mRandGen;
+    template<class Ts, class Tin, class Tin2>
+    Ts RandomWalkerMotion<Ts, Tin, Tin2>::predict(Ts state, Tin input, Tin2 encoderInfo){
+        auto& mRandGen = RandomWalker<Ts, Tin, Tin2>::mRandGen;
         const auto& mPedometer = mRWMotionProperty->pedometer();
         const auto& mOrientationMeter = mRWMotionProperty->orientationMeter();
         
@@ -114,14 +115,14 @@ namespace loc{
         }
     }
     
-    template<class Ts, class Tin>
-    RandomWalkerMotion<Ts, Tin>& RandomWalkerMotion<Ts, Tin>::setProperty(RandomWalkerMotionProperty::Ptr property){
+    template<class Ts, class Tin, class Tin2>
+    RandomWalkerMotion<Ts, Tin, Tin2>& RandomWalkerMotion<Ts, Tin, Tin2>::setProperty(RandomWalkerMotionProperty::Ptr property){
         mRWMotionProperty = property;
         return *this;
     }
     
-    template<class Ts, class Tin>
-    double RandomWalkerMotion<Ts, Tin>::movingLevel(){
+    template<class Ts, class Tin, class Tin2>
+    double RandomWalkerMotion<Ts, Tin, Tin2>::movingLevel(){
         if(isUnderControll){
             return mMovement;
         }else{
@@ -130,5 +131,5 @@ namespace loc{
     }
     
     // Explicit instantiation
-    template class RandomWalkerMotion<State, RandomWalkerInput>;
+    template class RandomWalkerMotion<State, RandomWalkerInput, EncoderInfo>;
 }

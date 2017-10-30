@@ -195,39 +195,39 @@ namespace loc{
     
     // Function definitions
     
-    template<class Tstate, class Tinput>
-    SystemModelInBuilding<Tstate, Tinput>& SystemModelInBuilding<Tstate, Tinput>::systemModel(typename SystemModelT::Ptr sysModel){
+    template<class Tstate, class Tinput, class Tin2>
+    SystemModelInBuilding<Tstate, Tinput, Tin2>& SystemModelInBuilding<Tstate, Tinput, Tin2>::systemModel(typename SystemModelT::Ptr sysModel){
         mSysModel = sysModel;
         return *this;
     }
     
-    template<class Tstate, class Tinput>
-    SystemModelInBuilding<Tstate, Tinput>::SystemModelInBuilding(typename SystemModelT::Ptr sysModel, Building::Ptr building, SystemModelInBuildingProperty::Ptr property){
+    template<class Tstate, class Tinput, class Tin2>
+    SystemModelInBuilding<Tstate, Tinput, Tin2>::SystemModelInBuilding(typename SystemModelT::Ptr sysModel, Building::Ptr building, SystemModelInBuildingProperty::Ptr property){
         mSysModel = sysModel;
         mBuilding = building;
         mProperty = property;
     }
         
-    template<class Tstate, class Tinput>
-    SystemModelInBuilding<Tstate, Tinput>& SystemModelInBuilding<Tstate, Tinput>::building(Building::Ptr building){
+    template<class Tstate, class Tinput, class Tin2>
+    SystemModelInBuilding<Tstate, Tinput, Tin2>& SystemModelInBuilding<Tstate, Tinput, Tin2>::building(Building::Ptr building){
         mBuilding = building;
         return *this;
     }
     
-    template<class Tstate, class Tinput>
-    SystemModelInBuilding<Tstate, Tinput>& SystemModelInBuilding<Tstate, Tinput>::property(SystemModelInBuildingProperty::Ptr property){
+    template<class Tstate, class Tinput, class Tin2>
+    SystemModelInBuilding<Tstate, Tinput, Tin2>& SystemModelInBuilding<Tstate, Tinput, Tin2>::property(SystemModelInBuildingProperty::Ptr property){
         mProperty = property;
         return *this;
     }
     
-    template<class Tstate, class Tinput>
-    SystemModelInBuilding<Tstate, Tinput>& SystemModelInBuilding<Tstate, Tinput>::altitudeManager(AltitudeManager::Ptr altManager){
+    template<class Tstate, class Tinput, class Tin2>
+    SystemModelInBuilding<Tstate, Tinput, Tin2>& SystemModelInBuilding<Tstate, Tinput, Tin2>::altitudeManager(AltitudeManager::Ptr altManager){
         mAltManager = altManager;
         return *this;
     }
     
-    template<class Tstate, class Tinput>
-    Tstate SystemModelInBuilding<Tstate, Tinput>::moveOnElevator(const Tstate& state, Tinput input){
+    template<class Tstate, class Tinput, class Tin2>
+    Tstate SystemModelInBuilding<Tstate, Tinput, Tin2>::moveOnElevator(const Tstate& state, Tinput input){
         int f_min = mBuilding->minFloor();
         int f_max = mBuilding->maxFloor();
         int f_current = std::round(state.floor());
@@ -267,8 +267,8 @@ namespace loc{
         return stateNew;
     }
     
-    template<class Tstate, class Tinput>
-    Tstate SystemModelInBuilding<Tstate, Tinput>::moveOnEscalator(const Tstate& state, Tinput input){
+    template<class Tstate, class Tinput, class Tin2>
+    Tstate SystemModelInBuilding<Tstate, Tinput, Tin2>::moveOnEscalator(const Tstate& state, Tinput input){
         // TODO: many duplications with moveOnStair
         int f_min = mBuilding->minFloor();
         int f_max = mBuilding->maxFloor();
@@ -311,8 +311,8 @@ namespace loc{
     }
     
     
-    template<class Tstate, class Tinput>
-    Tstate SystemModelInBuilding<Tstate, Tinput>::moveOnStair(const Tstate& state, Tinput input){
+    template<class Tstate, class Tinput, class Tin2>
+    Tstate SystemModelInBuilding<Tstate, Tinput, Tin2>::moveOnStair(const Tstate& state, Tinput input){
         int f_min = mBuilding->minFloor();
         int f_max = mBuilding->maxFloor();
         int f = state.floor();
@@ -368,8 +368,8 @@ namespace loc{
         return stateNew;
     }
 
-    template<class Tstate, class Tinput>
-    Tstate SystemModelInBuilding<Tstate, Tinput>::moveOnFloor(const Tstate& state, Tinput input){
+    template<class Tstate, class Tinput, class Tin2>
+    Tstate SystemModelInBuilding<Tstate, Tinput, Tin2>::moveOnFloor(const Tstate& state, Tinput input, Tin2 encoderInfo){
         if(! mBuilding->isMovable(state)){
             BOOST_THROW_EXCEPTION(LocException("building->isMovable(state) is false"));
         }
@@ -397,7 +397,7 @@ namespace loc{
         }
         // Update state
         for(int i=0; i<mProperty->maxTrial() ; i++){
-            stateNew = mSysModel->predict(state, input);
+            stateNew = mSysModel->predict(state, input, encoderInfo);
             if(mBuilding->checkMovableRoute(state, stateNew)){
                 break;
             }else if(i==mProperty->maxTrial()-1){
@@ -424,8 +424,8 @@ namespace loc{
         return stateNew;
     }
     
-    template<class Tstate, class Tinput>
-    Tstate SystemModelInBuilding<Tstate, Tinput>::moveOnFloorRetry(const Tstate& state, const Tstate& stateNew, Tinput input){
+    template<class Tstate, class Tinput, class Tin2>
+    Tstate SystemModelInBuilding<Tstate, Tinput, Tin2>::moveOnFloorRetry(const Tstate& state, const Tstate& stateNew, Tinput input){
         Tstate stateTmp(stateNew);
         if( mRandomGenerator.nextDouble() < mProperty->wallCrossingAliveRate()){
             double orientation = atan2(stateNew.y() - state.y(), stateNew.x() - state.x());
@@ -450,8 +450,8 @@ namespace loc{
         return stateTmp;
     }
     
-    template<class Tstate, class Tinput>
-    Tstate SystemModelInBuilding<Tstate, Tinput>::moveFloorJump(const Tstate& state, Tinput input){
+    template<class Tstate, class Tinput, class Tin2>
+    Tstate SystemModelInBuilding<Tstate, Tinput, Tin2>::moveFloorJump(const Tstate& state, Tinput input){
         int f_min = mBuilding->minFloor();
         int f_max = mBuilding->maxFloor();
         Tstate stateNew(state);
@@ -468,8 +468,8 @@ namespace loc{
         return stateNew;
     }
     
-    template<class Tstate, class Tinput>
-    Tstate SystemModelInBuilding<Tstate, Tinput>::predict(Tstate state, Tinput input){
+    template<class Tstate, class Tinput, class Tin2>
+    Tstate SystemModelInBuilding<Tstate, Tinput, Tin2>::predict(Tstate state, Tinput input, Tin2 encoderInfo){
         if(! mBuilding->isMovable(state)){
             BOOST_THROW_EXCEPTION(LocException("building->isMovable(state) == false"));
         }
@@ -477,24 +477,24 @@ namespace loc{
             // Jumping move
             if(mRandomGenerator.nextDouble() < mProperty->probabilityFloorJump()){
                 Tstate stateTmp = moveFloorJump(state, input);
-                return moveOnFloor(stateTmp, input);
+                return moveOnFloor(stateTmp, input, encoderInfo);
             }
             // Standard move
             if(mBuilding->isElevator(state)){
                 Tstate stateTmp = moveOnElevator(state, input);
                 if(Location::floorDifference(state, stateTmp)==0){
-                    return moveOnFloor(stateTmp, input);
+                    return moveOnFloor(stateTmp, input, encoderInfo);
                 }else{
                     return stateTmp;
                 }
             }else if(mBuilding->isEscalator(state)){ // escalator move is not allowed on escalator end
                 State stateTmp = moveOnEscalator(state, input);
-                return moveOnFloor(stateTmp, input);
+                return moveOnFloor(stateTmp, input, encoderInfo);
             }else if(mBuilding->isStair(state)){
                 State stateTmp = moveOnStair(state, input);
-                return moveOnFloor(stateTmp, input);
+                return moveOnFloor(stateTmp, input, encoderInfo);
             }else{
-                return moveOnFloor(state, input);
+                return moveOnFloor(state, input, encoderInfo);
             }
         }catch(LocException& ex){
             ex << boost::error_info<struct err_info, std::string>("Failed prediction at a given location (" + static_cast<Location>(state).toString() + ")");
@@ -502,23 +502,23 @@ namespace loc{
         }
     }
 
-    template<class Tstate, class Tinput>
-    std::vector<Tstate> SystemModelInBuilding<Tstate, Tinput>::predict(std::vector<Tstate> states, Tinput input){
+    template<class Tstate, class Tinput, class Tin2>
+    std::vector<Tstate> SystemModelInBuilding<Tstate, Tinput, Tin2>::predict(std::vector<Tstate> states, Tinput input, Tin2 encoderInfo){
         std::vector<Tstate> statesPredicted(states.size());
         mSysModel->startPredictions(states, input);
         for(int i=0; i<states.size(); i++){
             Tstate& st = states.at(i);
-            statesPredicted[i] = predict(st, input);
+            statesPredicted[i] = predict(st, input, encoderInfo);
         }
         mSysModel->endPredictions(states, input);
         return statesPredicted;
     }
     
-    template<class Tstate, class Tinput>
-    void SystemModelInBuilding<Tstate, Tinput>::notifyObservationUpdated(){
+    template<class Tstate, class Tinput, class Tin2>
+    void SystemModelInBuilding<Tstate, Tinput, Tin2>::notifyObservationUpdated(){
         mSysModel->notifyObservationUpdated();
     }
     
     // Explicit instantiation
-    template class SystemModelInBuilding<State, SystemModelInput>;
+    template class SystemModelInBuilding<State, SystemModelInput, EncoderInfo>;
 }

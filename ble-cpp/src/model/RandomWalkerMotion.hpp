@@ -28,6 +28,8 @@
 #include "Pedometer.hpp"
 #include "OrientationMeter.hpp"
 
+#include "EncoderInfo.hpp"
+
 namespace loc{
     
     class RandomWalkerMotionProperty{
@@ -74,27 +76,28 @@ namespace loc{
         double mAngularVelocityLimit = 30.0/180.0*M_PI;
     };
         
-    template<class Ts, class Tin>
-    class RandomWalkerMotion: public RandomWalker<Ts, Tin>, public SystemModelVelocityAdjustable, public SystemModelMovementControllable{
-    public:
-        RandomWalkerMotion(){
-            mRWMotionProperty.reset(new RandomWalkerMotionProperty);
-        };
-        virtual ~RandomWalkerMotion() = default;
+    template<class Ts, class Tin, class Tin2>
+    class RandomWalkerMotion: public RandomWalker<Ts, Tin, Tin2>, public SystemModelVelocityAdjustable, public SystemModelMovementControllable{
         
-        using Ptr = std::shared_ptr<RandomWalkerMotion>;
+        public:
+            RandomWalkerMotion(){
+                mRWMotionProperty.reset(new RandomWalkerMotionProperty);
+            };
+            virtual ~RandomWalkerMotion() = default;
         
-        virtual Ts predict(Ts state, Tin input) override;
-        virtual RandomWalkerMotion& setProperty(RandomWalkerMotionProperty::Ptr);
+            using Ptr = std::shared_ptr<RandomWalkerMotion>;
+        
+            virtual Ts predict(Ts state, Tin input, Tin2 encoderInfo) override;
+            virtual RandomWalkerMotion& setProperty(RandomWalkerMotionProperty::Ptr);
 
-    protected:
-        RandomWalkerMotionProperty::Ptr mRWMotionProperty;
-        double turningVelocityRate = 1.0;
-        long currentTimestamp;
-        double currentYaw;
-        bool wasYawUpdated = false;
+        protected:
+            RandomWalkerMotionProperty::Ptr mRWMotionProperty;
+            double turningVelocityRate = 1.0;
+            long currentTimestamp;
+            double currentYaw;
+            bool wasYawUpdated = false;
         
-        virtual double movingLevel();
+            virtual double movingLevel();
     };
 }
 

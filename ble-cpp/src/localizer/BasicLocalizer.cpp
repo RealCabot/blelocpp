@@ -217,6 +217,7 @@ namespace loc{
     }
     */
     
+    // observation model?
     StreamLocalizer& BasicLocalizer::putBeacons(const Beacons beacons) {
         if (!isReady) {
             return *this;
@@ -224,7 +225,7 @@ namespace loc{
         if (mFunctionCalledToLog) {
             mFunctionCalledToLog(mUserDataToLog, LogUtil::toString(beacons));
         }
-        if (beaconFilter->filter(beacons).size() ==0){
+        if (beaconFilter->filter(beacons).size() == 0){
             std::cout << "The number of strong beacon is zero." << std::endl;
             return *this;
         }
@@ -276,7 +277,8 @@ namespace loc{
                     BOOST_THROW_EXCEPTION(LocException("location status is not set (NIL)"));
                     break;
             }
-        }else{
+        }
+        else{
             switch(mLocationStatus){
                 case(Status::UNKNOWN): case(Status::LOCATING): case(Status::STABLE): case(Status::UNSTABLE):
                     mLocalizer->resetStatus(beaconsTmp);
@@ -924,10 +926,10 @@ namespace loc{
         if (localizeMode == RANDOM_WALK_ACC_ATT) {
             mLocalizer->systemModel(poseRandomWalkerInBuilding);
         }else if(localizeMode == RANDOM_WALK_ACC){
-            RandomWalkerMotion<State, SystemModelInput>::Ptr randomWalkerMotion(new RandomWalkerMotion<State, SystemModelInput>);
+            RandomWalkerMotion<State, SystemModelInput, EncoderInfo>::Ptr randomWalkerMotion(new RandomWalkerMotion<State, SystemModelInput, EncoderInfo>);
             randomWalkerMotion->setProperty(randomWalkerMotionProperty);
             // Setup SystemModelInBuilding
-            SystemModelInBuilding<State, SystemModelInput>::Ptr rwMotionBldg(new SystemModelInBuilding<State, SystemModelInput>(randomWalkerMotion, buildingPtr, prwBuildingProperty) );
+            SystemModelInBuilding<State, SystemModelInput, EncoderInfo>::Ptr rwMotionBldg(new SystemModelInBuilding<State, SystemModelInput, EncoderInfo>(randomWalkerMotion, buildingPtr, prwBuildingProperty) );
             mLocalizer->systemModel(rwMotionBldg);
         }
         else if (localizeMode == RANDOM_WALK) {
@@ -945,7 +947,7 @@ namespace loc{
             wPRWproperty->poseRandomWalkRate(poseRandomWalkRate);
             wPRWproperty->randomWalkRate(randomWalkRate);
             wPRW->setWeakPoseRandomWalkerProperty(wPRWproperty);
-            SystemModelInBuilding<State, SystemModelInput>::Ptr wPRWBldg(new SystemModelInBuilding<State, SystemModelInput>(wPRW, buildingPtr, prwBuildingProperty) );
+            SystemModelInBuilding<State, SystemModelInput, EncoderInfo>::Ptr wPRWBldg(new SystemModelInBuilding<State, SystemModelInput, EncoderInfo>(wPRW, buildingPtr, prwBuildingProperty) );
             mLocalizer->systemModel(wPRWBldg);
         }
         

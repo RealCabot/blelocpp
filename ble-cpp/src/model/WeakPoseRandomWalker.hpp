@@ -30,6 +30,8 @@
 #include "PoseRandomWalker.hpp"
 #include "PosteriorResampler.hpp"
 
+#include "EncoderInfo.hpp"
+
 namespace loc {
     
     class WeakPoseRandomWalkerProperty{
@@ -95,12 +97,12 @@ namespace loc {
     
     
     // Tentative name
-    template<class Ts = State, class Tin = SystemModelInput>
-    class WeakPoseRandomWalker: public RandomWalkerMotion<Ts, Tin>{
-        using RandomWalkerMotion<Ts, Tin>::currentTimestamp;
-        using RandomWalkerMotion<Ts, Tin>::currentYaw;
-        using RandomWalkerMotion<Ts, Tin>::wasYawUpdated;
-        using RandomWalkerMotion<Ts, Tin>::turningVelocityRate;
+    template<class Ts = State, class Tin = SystemModelInput, class Tin2 = EncoderInfo>
+    class WeakPoseRandomWalker: public RandomWalkerMotion<Ts, Tin, Tin2>{
+        using RandomWalkerMotion<Ts, Tin, Tin2>::currentTimestamp;
+        using RandomWalkerMotion<Ts, Tin, Tin2>::currentYaw;
+        using RandomWalkerMotion<Ts, Tin, Tin2>::wasYawUpdated;
+        using RandomWalkerMotion<Ts, Tin, Tin2>::turningVelocityRate;
         
         PoseProperty::Ptr mPoseProperty;
         StateProperty::Ptr mStateProperty;
@@ -111,19 +113,19 @@ namespace loc {
         long previousTimestampResample = 0;
         
     public:
-        using Ptr = std::shared_ptr<WeakPoseRandomWalker<Ts, Tin>>;
-        using RandomWalker<Ts, Tin>::predict;
-        using RandomWalkerMotion<Ts, Tin>::predict;
-        using RandomWalkerMotion<Ts, Tin>::velocityRate;
-        using RandomWalkerMotion<Ts, Tin>::setProperty;
-        using RandomWalkerMotion<Ts, Tin>::relativeVelocity;
+        using Ptr = std::shared_ptr<WeakPoseRandomWalker<Ts, Tin, Tin2>>;
+        using RandomWalker<Ts, Tin, Tin2>::predict;
+        using RandomWalkerMotion<Ts, Tin, Tin2>::predict;
+        using RandomWalkerMotion<Ts, Tin, Tin2>::velocityRate;
+        using RandomWalkerMotion<Ts, Tin, Tin2>::setProperty;
+        using RandomWalkerMotion<Ts, Tin, Tin2>::relativeVelocity;
         
         WeakPoseRandomWalker() : wPRWProperty(new WeakPoseRandomWalkerProperty) {
             // pass
         }
         
         virtual ~WeakPoseRandomWalker() = default;
-        virtual Ts predict(Ts state, Tin input) override;
+        virtual Ts predict(Ts state, Tin input, Tin2 encoderInfo) override;
         virtual void startPredictions(const std::vector<Ts>& states, const Tin&) override;
         virtual void endPredictions(const std::vector<Ts>& states, const Tin&) override;
         virtual void notifyObservationUpdated() override;

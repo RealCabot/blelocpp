@@ -24,10 +24,10 @@
 
 namespace loc{
     
-    template<class Ts, class Tin>
-    Ts WeakPoseRandomWalker<Ts, Tin>::predict(Ts state, Tin input){
+    template<class Ts, class Tin, class Tin2>
+    Ts WeakPoseRandomWalker<Ts, Tin, Tin2>::predict(Ts state, Tin input, Tin2 encoderInfo){
         auto& mRandGen = RandomWalker<Ts, Tin>::mRandGen;
-        auto& mRWMotionProperty = RandomWalkerMotion<Ts,Tin>::mRWMotionProperty;
+        auto& mRWMotionProperty = RandomWalkerMotion<Ts,Tin, Tin2>::mRWMotionProperty;
         const auto& mPedometer = mRWMotionProperty->pedometer();
         const auto& mOrientationMeter = mRWMotionProperty->orientationMeter();
         
@@ -43,7 +43,7 @@ namespace loc{
         
         if(mPedometer && mOrientationMeter){
             double nSteps = mPedometer->getNSteps();
-            double movLevel = RandomWalkerMotion<Ts,Tin>::movingLevel();
+            double movLevel = RandomWalkerMotion<Ts, Tin, Tin2>::movingLevel();
             double yaw = mOrientationMeter->getYaw();
             
             if(dt<input.timeUnit()){
@@ -176,8 +176,8 @@ namespace loc{
         }
     }
     
-    template<class Ts, class Tin>
-    void WeakPoseRandomWalker<Ts, Tin>::startPredictions(const std::vector<Ts>& states, const Tin& input){
+    template<class Ts, class Tin, class Tin2>
+    void WeakPoseRandomWalker<Ts, Tin, Tin2>::startPredictions(const std::vector<Ts>& states, const Tin& input){
         enabledPredictions = true;
         if(previousTimestampResample==0){
             previousTimestampResample = input.timestamp();
@@ -185,8 +185,8 @@ namespace loc{
         // pass
     }
     
-    template<class Ts, class Tin>
-    void WeakPoseRandomWalker<Ts, Tin>::endPredictions(const std::vector<Ts>& states, const Tin& input){
+    template<class Ts, class Tin, class Tin2>
+    void WeakPoseRandomWalker<Ts, Tin, Tin2>::endPredictions(const std::vector<Ts>& states, const Tin& input){
         if(wasFiltered){
             previousTimestampResample = input.timestamp();
         }
@@ -194,8 +194,8 @@ namespace loc{
     }
     
     
-    template<class Ts, class Tin>
-    void WeakPoseRandomWalker<Ts, Tin>::notifyObservationUpdated(){
+    template<class Ts, class Tin, class Tin2>
+    void WeakPoseRandomWalker<Ts, Tin, Tin2>::notifyObservationUpdated(){
         wasFiltered = true;
     }
     

@@ -35,6 +35,7 @@
 #include "OrientationMeter.hpp"
 #include "RandomGenerator.hpp"
 #include "Pose.hpp"
+
 #include "EncoderInfo.hpp"  // get encoderInfo
 
 namespace loc{
@@ -75,7 +76,8 @@ namespace loc{
         }
     };
     
-    class PoseRandomWalker: public SystemModel<State, SystemModelInput>, public SystemModelVelocityAdjustable, public SystemModelMovementControllable{
+    // probably have to change the functions in the class its inheriting from
+    class PoseRandomWalker: public SystemModel<State, SystemModelInput, EncoderInfo>, public SystemModelVelocityAdjustable, public SystemModelMovementControllable{
 
     protected:        
         RandomGenerator randomGenerator;
@@ -92,8 +94,8 @@ namespace loc{
         virtual PoseRandomWalker& setPoseProperty(PoseProperty::Ptr poseProperty);
         virtual PoseRandomWalker& setStateProperty(StateProperty::Ptr stateProperty);
         
-        virtual std::vector<State> predict(std::vector<State> poses, SystemModelInput input) override;
-        virtual State predict(State state, SystemModelInput input) override;
+        virtual std::vector<State> predict(std::vector<State> poses, SystemModelInput input, EncoderInfo encoderInfo) override;
+        virtual State predict(State state, SystemModelInput input, EncoderInfo encoderInfo) override;
         
         virtual double movingLevel();
     };

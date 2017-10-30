@@ -44,6 +44,8 @@
 
 #include "LocException.hpp"
 
+#include "EncoderInfo.hpp"
+
 namespace loc{
     
     // Parameter class implementation
@@ -286,7 +288,7 @@ namespace loc{
         std::shared_ptr<OrientationMeter> mOrientationmeter;
         std::shared_ptr<AltitudeManager> mAltitudeManager;
 
-        std::shared_ptr<SystemModel<State, SystemModelInput>> mRandomWalker;
+        std::shared_ptr<SystemModel<State, SystemModelInput, EncoderInfo>> mRandomWalker;
 
         std::shared_ptr<ObservationModel<State, Beacons>> mObservationModel;
         std::shared_ptr<Resampler<State>> mResampler;
@@ -361,6 +363,7 @@ namespace loc{
             }
 
             SystemModelInput input;
+            EncoderInfo encoderInfo(timestamp, 0, 0.1);  // mustchange
             input.timestamp(timestamp);
             input.previousTimestamp(previousTimestampMotion);
 
@@ -369,7 +372,7 @@ namespace loc{
             bool timestampIntervalIsValid = (input.timestamp() - input.previousTimestamp()) < timestampIntervalLimit;
             
             if(timestampIntervalIsValid){
-                StatesPtr statesPredicted(new States(mRandomWalker->predict(*states.get(), input)));
+                StatesPtr statesPredicted(new States(mRandomWalker->predict(*states.get(), input, encoderInfo)));
                 status->states(statesPredicted, Status::PREDICTION);
             }else{
                 std::cout << "Interval between two timestamps is too large. The input at timestamp=" << timestamp << " was not used." << std::endl;
@@ -1166,7 +1169,7 @@ namespace loc{
             mAltitudeManager = altitudeManager;
         }
 
-        void systemModel(std::shared_ptr<SystemModel<State, SystemModelInput>> randomWalker){
+        void systemModel(std::shared_ptr<SystemModel<State, SystemModelInput, EncoderInfo>> randomWalker){
             mRandomWalker = randomWalker;
         }
 
@@ -1330,7 +1333,7 @@ namespace loc{
         return *this;
     }
 
-    StreamParticleFilter& StreamParticleFilter::systemModel(std::shared_ptr<SystemModel<State, SystemModelInput>> randomWalker){
+    StreamParticleFilter& StreamParticleFilter::systemModel(std::shared_ptr<SystemModel<State, SystemModelInput, EncoderInfo>> randomWalker){
         impl->systemModel(randomWalker);
         return *this;
     }

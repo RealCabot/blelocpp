@@ -40,15 +40,15 @@ namespace loc{
         return *this;
     }
     
-    std::vector<State> PoseRandomWalker::predict(std::vector<State> states, SystemModelInput input){
+    std::vector<State> PoseRandomWalker::predict(std::vector<State> states, SystemModelInput input, EncoderInfo encoderInfo){
         std::vector<State> statesPredicted(states.size());
         for(int i=0; i<states.size(); i++){
-            statesPredicted[i]= predict(states[i], input);
+            statesPredicted[i]= predict(states[i], input, encoderInfo);
         }
         return statesPredicted;
     }
     
-    State PoseRandomWalker::predict(State state, SystemModelInput input){
+    State PoseRandomWalker::predict(State state, SystemModelInput input, EncoderInfo encoderInfo){
         //long timestamp = input.timestamp;
         //long previousTimestamp = input.previousTimestamp;
         double dTime = (input.timestamp()-input.previousTimestamp())/(1000.0); //[s] Difference in time
@@ -84,10 +84,11 @@ namespace loc{
         double v = 0.0;
         double nV = state.normalVelocity();
         if(nSteps >0 || mProperty->doesUpdateWhenStopping()){
-            nV = randomGenerator.nextTruncatedGaussian(state.normalVelocity(),
-                                                          poseProperty->diffusionVelocity()*dTime,
-                                                          poseProperty->minVelocity(),
-                                                          poseProperty->maxVelocity());
+            // double mean, double std, double min, double max
+            nV = randomGenerator.nextTruncatedGaussian(encoderInfo.getVelocity(),  // used to be state.normalVelocity()
+                                                       poseProperty->diffusionVelocity()*dTime,
+                                                       poseProperty->minVelocity(),
+                                                       poseProperty->maxVelocity());
             state.normalVelocity(nV);
         }
         
@@ -96,12 +97,13 @@ namespace loc{
             v = nV * velocityRate() * turningVelocityRate;
         }
         if(relativeVelocity()>0){
-            v += randomGenerator.nextTruncatedGaussian(relativeVelocity(),
-                                                 poseProperty->diffusionVelocity()*dTime,
-                                                 poseProperty->minVelocity(),
-                                                 poseProperty->maxVelocity());
+            v += randomGenerator.nextTruncatedGaussian(relativeVelocity(),                  // change relative velocity later?
+                                                       poseProperty->diffusionVelocity()*dTime,
+                                                       poseProperty->minVelocity(),
+                                                       poseProperty->maxVelocity());
         }
         state.velocity(v);
+        // state.velocity(encoderInfo.getVelocity());  // changed so that velocity comes straight from encoderInfo
         
         // Update in-plane coordinate.
         double x = state.x() + state.vx() * dTime;
@@ -118,7 +120,8 @@ namespace loc{
     double PoseRandomWalker::movingLevel(){
         if(isUnderControll){
             return mMovement;
-        }else{
+        }
+        else{
             return mProperty->pedometer()->getNSteps();
         }
     }

@@ -22,6 +22,10 @@
 
 /* Begin PBXBuildFile section */
 		634B3C690684C08A0572FBE0 /* libPods-blelocjni.a in Frameworks */ = {isa = PBXBuildFile; fileRef = BC1A73BB7CF5381110A675C3 /* libPods-blelocjni.a */; };
+		6BD43BEA1FA7978000E0B457 /* Encoder.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6BD43BE61FA7978000E0B457 /* Encoder.cpp */; };
+		6BD43BEB1FA7978000E0B457 /* Encoder.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 6BD43BE71FA7978000E0B457 /* Encoder.hpp */; };
+		6BD43BEF1FA7982400E0B457 /* EncoderInfo.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6BD43BED1FA7982400E0B457 /* EncoderInfo.cpp */; };
+		6BD43BF01FA7982400E0B457 /* EncoderInfo.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 6BD43BEE1FA7982400E0B457 /* EncoderInfo.hpp */; };
 		7E6F25371C0F1D76007A97A1 /* BaseBeaconFilter.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 7E6F24C61C0F1D76007A97A1 /* BaseBeaconFilter.hpp */; settings = {ATTRIBUTES = (Public, ); }; };
 		7E6F25381C0F1D76007A97A1 /* BaseBeaconFilter.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 7E6F24C61C0F1D76007A97A1 /* BaseBeaconFilter.hpp */; };
 		7E6F25391C0F1D76007A97A1 /* BeaconFilter.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 7E6F24C71C0F1D76007A97A1 /* BeaconFilter.hpp */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -262,12 +266,10 @@
 /* Begin PBXFileReference section */
 		308D6E89343F046D8CCC70C3 /* Pods-bleloc.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-bleloc.release.xcconfig"; path = "Pods/Target Support Files/Pods-bleloc/Pods-bleloc.release.xcconfig"; sourceTree = "<group>"; };
 		5D651D528829A828244BD797 /* libPods-bleloc.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-bleloc.a"; sourceTree = BUILT_PRODUCTS_DIR; };
-		6BD43BBA1F9FFBA700E0B457 /* EncoderInfo.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = EncoderInfo.cpp; path = "../../../../blelocpp-chris/ble-cpp/src/core/EncoderInfo.cpp"; sourceTree = "<group>"; };
-		6BD43BBB1F9FFBB400E0B457 /* EncoderInfo.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; name = EncoderInfo.hpp; path = "../../../../blelocpp-chris/ble-cpp/src/core/EncoderInfo.hpp"; sourceTree = "<group>"; };
-		6BD43BBC1F9FFDD900E0B457 /* Encoder.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = Encoder.cpp; path = "../../../../blelocpp-chris/ble-cpp/src/sensor/Encoder.cpp"; sourceTree = "<group>"; };
-		6BD43BBD1F9FFDE400E0B457 /* Encoder.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; name = Encoder.hpp; path = "../../../../blelocpp-chris/ble-cpp/src/sensor/Encoder.hpp"; sourceTree = "<group>"; };
-		6BD43BBE1F9FFDEF00E0B457 /* EncoderWalkingState.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = EncoderWalkingState.cpp; path = "../../../../blelocpp-chris/ble-cpp/src/sensor/EncoderWalkingState.cpp"; sourceTree = "<group>"; };
-		6BD43BBF1F9FFDF900E0B457 /* EncoderWalkingState.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; name = EncoderWalkingState.hpp; path = "../../../../blelocpp-chris/ble-cpp/src/sensor/EncoderWalkingState.hpp"; sourceTree = "<group>"; };
+		6BD43BE61FA7978000E0B457 /* Encoder.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Encoder.cpp; sourceTree = "<group>"; };
+		6BD43BE71FA7978000E0B457 /* Encoder.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = Encoder.hpp; sourceTree = "<group>"; };
+		6BD43BED1FA7982400E0B457 /* EncoderInfo.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = EncoderInfo.cpp; sourceTree = "<group>"; };
+		6BD43BEE1FA7982400E0B457 /* EncoderInfo.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = EncoderInfo.hpp; sourceTree = "<group>"; };
 		7654A1CA9FFCCD15F8AD65D2 /* Pods-blelocjni.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-blelocjni.release.xcconfig"; path = "Pods/Target Support Files/Pods-blelocjni/Pods-blelocjni.release.xcconfig"; sourceTree = "<group>"; };
 		7E6F24C61C0F1D76007A97A1 /* BaseBeaconFilter.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = BaseBeaconFilter.hpp; sourceTree = "<group>"; };
 		7E6F24C71C0F1D76007A97A1 /* BeaconFilter.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = BeaconFilter.hpp; sourceTree = "<group>"; };
@@ -485,8 +487,8 @@
 		7E6F24CC1C0F1D76007A97A1 /* core */ = {
 			isa = PBXGroup;
 			children = (
-				6BD43BBB1F9FFBB400E0B457 /* EncoderInfo.hpp */,
-				6BD43BBA1F9FFBA700E0B457 /* EncoderInfo.cpp */,
+				6BD43BED1FA7982400E0B457 /* EncoderInfo.cpp */,
+				6BD43BEE1FA7982400E0B457 /* EncoderInfo.hpp */,
 				FBC2B5081D956CE400E09B16 /* LocException.hpp */,
 				7E6F24CD1C0F1D76007A97A1 /* Acceleration.cpp */,
 				7E6F24CE1C0F1D76007A97A1 /* Acceleration.hpp */,
@@ -621,10 +623,8 @@
 		7E6F25211C0F1D76007A97A1 /* sensor */ = {
 			isa = PBXGroup;
 			children = (
-				6BD43BBD1F9FFDE400E0B457 /* Encoder.hpp */,
-				6BD43BBC1F9FFDD900E0B457 /* Encoder.cpp */,
-				6BD43BBF1F9FFDF900E0B457 /* EncoderWalkingState.hpp */,
-				6BD43BBE1F9FFDEF00E0B457 /* EncoderWalkingState.cpp */,
+				6BD43BE61FA7978000E0B457 /* Encoder.cpp */,
+				6BD43BE71FA7978000E0B457 /* Encoder.hpp */,
 				FBE583131DF9BF1B00057DB5 /* Altimeter.cpp */,
 				FBE583141DF9BF1B00057DB5 /* Altimeter.hpp */,
 				FBE583151DF9BF1B00057DB5 /* AltitudeManager.hpp */,
@@ -842,9 +842,11 @@
 				7E6F25411C0F1D76007A97A1 /* StrongestBeaconFilter.hpp in Headers */,
 				7E6F25B91C0F1D77007A97A1 /* GaussianProcessLDPLMultiModel.hpp in Headers */,
 				7E6F255F1C0F1D76007A97A1 /* Location.hpp in Headers */,
+				6BD43BEB1FA7978000E0B457 /* Encoder.hpp in Headers */,
 				7E6F25951C0F1D77007A97A1 /* Resampler.hpp in Headers */,
 				7E6F25DF1C0F1D78007A97A1 /* SystemModel.hpp in Headers */,
 				FB5B4BF21C7C41B600D00E8E /* MetropolisSampler.hpp in Headers */,
+				6BD43BF01FA7982400E0B457 /* EncoderInfo.hpp in Headers */,
 				FB71CE571C475B4600A4DB67 /* BeaconFilterChain.hpp in Headers */,
 				FB5B4BF31C7C41B600D00E8E /* ObservationDependentInitializer.hpp in Headers */,
 				FB176CBA1D7823D1008C1745 /* LatLngConverter.hpp in Headers */,
@@ -1125,8 +1127,10 @@
 				7E6F26031C0F1D79007A97A1 /* RandomGenerator.cpp in Sources */,
 				7E6F25AB1C0F1D77007A97A1 /* FloorMap.cpp in Sources */,
 				7E6F25851C0F1D76007A97A1 /* DataUtils.cpp in Sources */,
+				6BD43BEA1FA7978000E0B457 /* Encoder.cpp in Sources */,
 				7E6F256D1C0F1D76007A97A1 /* Sample.cpp in Sources */,
 				7E6F25711C0F1D76007A97A1 /* State.cpp in Sources */,
+				6BD43BEF1FA7982400E0B457 /* EncoderInfo.cpp in Sources */,
 				7EDEDC0F1D1CB3B300AC111A /* ExtendedDataUtils.cpp in Sources */,
 				FB273EF51D22226B00F53CCB /* ExtendedDataUtils.cpp in Sources */,
 				FB71CE4F1C46889F00A4DB67 /* MathUtils.cpp in Sources */,

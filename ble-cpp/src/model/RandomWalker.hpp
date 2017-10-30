@@ -32,6 +32,8 @@
 #include "SystemModel.hpp"
 #include "State.hpp"
 
+#include "EncoderInfo.hpp"
+
 namespace loc{
     
     using RandomWalkerInput = SystemModelInput;
@@ -42,8 +44,8 @@ namespace loc{
         double sigma = 1.0;
     };
     
-    template<class Ts=State, class Tin=SystemModelInput>
-    class RandomWalker : public SystemModel<Ts, Tin>{
+    template<class Ts = State, class Tin = SystemModelInput, class Tin2 = EncoderInfo>
+    class RandomWalker : public SystemModel<Ts, Tin, Tin2>{
     
     public:
         RandomWalker(){
@@ -54,11 +56,11 @@ namespace loc{
         virtual ~RandomWalker(){}
         
         [[deprecated("please use setProperty(RandomWalkerProperty::Ptr) function")]]
-        virtual RandomWalker<Ts, Tin>& setProperty(RandomWalkerProperty property);
+        virtual RandomWalker<Ts, Tin, Tin2>& setProperty(RandomWalkerProperty property);
         
-        virtual RandomWalker<Ts, Tin>& setProperty(RandomWalkerProperty::Ptr property);
-        virtual Ts predict(Ts state, Tin input) override;
-        virtual std::vector<Ts> predict(std::vector<Ts> states, Tin input) override;
+        virtual RandomWalker<Ts, Tin, Tin2>& setProperty(RandomWalkerProperty::Ptr property);
+        virtual Ts predict(Ts state, Tin input, Tin2 encoderInfo) override;
+        virtual std::vector<Ts> predict(std::vector<Ts> states, Tin input, Tin2 encoderInfo) override;
         
     protected:
         RandomWalkerProperty::Ptr mRWProperty;
