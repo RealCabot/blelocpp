@@ -9,7 +9,7 @@ This is a localization library for bluetooth le beacons.
 
   s.license      = "MIT"
   s.author    = "realCabot"
-  s.source       = { :http => "http://github.com/RealCabot/blelocpp/releases/download/1.32/bleloc.framework.zip" }
+  s.source       = { :http => "http://github.com/RealCabot/blelocpp/releases/download/1.3.2/bleloc.framework.zip" }
   s.preserve_path = "bleloc.framework"
   s.vendored_frameworks = "bleloc.framework"
   s.platforms = {:ios => "8.4"}
