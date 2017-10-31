@@ -1,6 +1,6 @@
 Pod::Spec.new do |s|
   s.name         = "bleloc"
-  s.version      = "1.3.0"
+  s.version      = "1.32"
   s.summary      = "Localization library"
   s.homepage     = "https://github.com/realCabot/"
   s.description  = <<-DESC
