@@ -363,7 +363,7 @@ namespace loc{
             }
 
             SystemModelInput input;
-            EncoderInfo encoderInfo(timestamp, 0, 0.1);  // mustchange
+            EncoderInfo encoderInfo(timestamp, 0, 1.0);  // mustchange
             input.timestamp(timestamp);
             input.previousTimestamp(previousTimestampMotion);
 

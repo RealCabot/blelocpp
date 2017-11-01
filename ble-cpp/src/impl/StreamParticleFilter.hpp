@@ -39,8 +39,8 @@
 
 #include "EncoderInfo.hpp"
 
-namespace loc {
-    
+namespace loc
+{
     enum FloorUpdateMode{
         COUNT,
         WEIGHT

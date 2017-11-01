@@ -33,7 +33,7 @@ namespace loc
         private:
             long timeStamp_;
             float position_;
-            float velocity_;
+            float velocity_ = 1.0;  // m/s
             // float veloThresh;
         
         public:
