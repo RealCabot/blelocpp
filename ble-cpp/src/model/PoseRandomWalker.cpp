@@ -85,7 +85,7 @@ namespace loc{
         double nV = state.normalVelocity();
         if(nSteps >0 || mProperty->doesUpdateWhenStopping()){
             // double mean, double std, double min, double max
-            nV = randomGenerator.nextTruncatedGaussian(encoderInfo.getVelocity(),  // used to be state.normalVelocity()
+            nV = randomGenerator.nextTruncatedGaussian(state.normalVelocity(),  // used to be state.normalVelocity()  // encoderInfo.getVelocity()
                                                        poseProperty->diffusionVelocity()*dTime,
                                                        poseProperty->minVelocity(),
                                                        poseProperty->maxVelocity());
