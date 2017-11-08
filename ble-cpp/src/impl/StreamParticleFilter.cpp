@@ -83,6 +83,14 @@ namespace loc{
         return *this;
     }
     
+    long StreamParticleFilter::FloorTransitionParameters::durationAllowForceFloorUpdate() const{
+        return durationAllowForceFloorUpdate_;
+    }
+
+    StreamParticleFilter::FloorTransitionParameters& StreamParticleFilter::FloorTransitionParameters::durationAllowForceFloorUpdate(long window){
+        durationAllowForceFloorUpdate_ = window;
+        return *this;
+    }
     
     // Helper class implementations
     
@@ -315,6 +323,8 @@ namespace loc{
 
         CleansingBeaconFilter cleansingBeaconFilter;
 
+        std::deque<double> heightChangeQueueForForceFloorUpdate;
+        
     public:
 
         Impl() : status(new Status()),
@@ -394,7 +404,14 @@ namespace loc{
         void putAltimeter(const Altimeter altimeter){
             if(mAltitudeManager){
                 mAltitudeManager->putAltimeter(altimeter);
-                
+                // update height change buffer for force floor updater
+                auto heightChanged = mAltitudeManager->heightChange();
+                if(heightChangeQueueForForceFloorUpdate.size() < mFloorTransParams->durationAllowForceFloorUpdate()){
+                    heightChangeQueueForForceFloorUpdate.push_back(heightChanged);
+                }else{
+                    heightChangeQueueForForceFloorUpdate.pop_front();
+                    heightChangeQueueForForceFloorUpdate.push_back(heightChanged);
+                }
                 // Update states with the altimeter manager.
                 long ts = altimeter.timestamp();
                 std::shared_ptr<States> states = status->states();
@@ -806,8 +823,17 @@ namespace loc{
         bool checkTryFloorUpdate(){
             if(mEnablesFloorUpdate){
                 if(mAltitudeManager){
-                    auto heightChanged = mAltitudeManager->heightChange();
-                    if(heightChanged > mFloorTransParams->heightChangedCriterion()){
+                    // use buffer for floor update
+                    double avgHeightChanged = 0.0;
+                    if(!heightChangeQueueForForceFloorUpdate.empty()){
+                        avgHeightChanged = std::accumulate(heightChangeQueueForForceFloorUpdate.begin(),
+                                                           heightChangeQueueForForceFloorUpdate.end(),
+                                                           0.0)/heightChangeQueueForForceFloorUpdate.size();
+                    }
+                    if(mOptVerbose){
+                        std::cout << "StreamParticleFilter::Impl::checkTryFloorUpdate: " << "avgHeightChanged=" << avgHeightChanged << ", size=" << heightChangeQueueForForceFloorUpdate.size() << std::endl;
+                    }
+                    if(avgHeightChanged > mFloorTransParams->heightChangedCriterion()){
                         return true;
                     }else{
                         return false;
