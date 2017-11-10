@@ -86,7 +86,7 @@ namespace loc
                 nSteps = 0.0;
             }
         }*/
-        double dTime = (timestamp-prevUpdateTime)/1000.0;
+        double dTime = (timestamp-prevUpdateTime)/1000.0;  // all timestamps were multiplied by 1000
         
         if( dTime >= mParameters.updatePeriod()){
             prevUpdateTime = timestamp;
