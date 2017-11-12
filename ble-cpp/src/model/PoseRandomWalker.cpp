@@ -73,7 +73,7 @@ namespace loc{
         double orientationActual = yaw - state.orientationBias();
         
         // commented out by Chris, see what happens if you take away the noise
-        // orientationActual += poseProperty->stdOrientation()*randomGenerator.nextGaussian()*dTime;
+        orientationActual += poseProperty->stdOrientation()*randomGenerator.nextGaussian()*dTime;
         
         orientationActual = Pose::normalizeOrientaion(orientationActual);
         state.orientation(orientationActual);
@@ -88,7 +88,7 @@ namespace loc{
         double nV = state.normalVelocity();
         if(nSteps >0 || mProperty->doesUpdateWhenStopping()){
             // double mean, double std, double min, double max
-            nV = randomGenerator.nextTruncatedGaussian(encoderInfo.getVelocity(),  // used to be state.normalVelocity()  // encoderInfo.getVelocity()
+            nV = randomGenerator.nextTruncatedGaussian(encoderInfo.getVelocity(),  // used to be state.normalVelocity()
                                                        poseProperty->diffusionVelocity()*dTime,
                                                        poseProperty->minVelocity(),
                                                        poseProperty->maxVelocity());
@@ -101,13 +101,13 @@ namespace loc{
         }
         
         // commented out by Chris
-        /*if(relativeVelocity()>0){
+        if(relativeVelocity()>0){
             v += randomGenerator.nextTruncatedGaussian(relativeVelocity(),                  // change relative velocity later?
                                                        poseProperty->diffusionVelocity()*dTime,
                                                        poseProperty->minVelocity(),
                                                        poseProperty->maxVelocity());
             
-        }*/
+        }
         state.velocity(v);
         
         
