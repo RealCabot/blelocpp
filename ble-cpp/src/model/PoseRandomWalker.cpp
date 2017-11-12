@@ -99,17 +99,16 @@ namespace loc{
         if(nSteps > 0){
             v = nV * velocityRate() * turningVelocityRate;
         }
-        if(relativeVelocity()>0){
+        
+        // commented out by Chris
+        /*if(relativeVelocity()>0){
             v += randomGenerator.nextTruncatedGaussian(relativeVelocity(),                  // change relative velocity later?
                                                        poseProperty->diffusionVelocity()*dTime,
                                                        poseProperty->minVelocity(),
                                                        poseProperty->maxVelocity());
-        }
+            
+        }*/
         state.velocity(v);
-        
-        // try this
-        state.velocity(encoderInfo.getVelocity());  // changed so that velocity comes straight from encoderInfo
-        // end try this
         
         
         // Update in-plane coordinate.
