@@ -71,7 +71,10 @@ namespace loc{
         // Update orientation
         double previousOrientation = state.orientation();
         double orientationActual = yaw - state.orientationBias();
-        orientationActual += poseProperty->stdOrientation()*randomGenerator.nextGaussian()*dTime;
+        
+        // commented out by Chris, see what happens if you take away the noise
+        // orientationActual += poseProperty->stdOrientation()*randomGenerator.nextGaussian()*dTime;
+        
         orientationActual = Pose::normalizeOrientaion(orientationActual);
         state.orientation(orientationActual);
         
@@ -103,7 +106,11 @@ namespace loc{
                                                        poseProperty->maxVelocity());
         }
         state.velocity(v);
-        // state.velocity(encoderInfo.getVelocity());  // changed so that velocity comes straight from encoderInfo
+        
+        // try this
+        state.velocity(encoderInfo.getVelocity());  // changed so that velocity comes straight from encoderInfo
+        // end try this
+        
         
         // Update in-plane coordinate.
         double x = state.x() + state.vx() * dTime;
