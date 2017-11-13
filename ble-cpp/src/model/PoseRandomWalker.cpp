@@ -73,7 +73,7 @@ namespace loc{
         double orientationActual = yaw - state.orientationBias();
         
         // commented out by Chris, see what happens if you take away the noise
-        orientationActual += poseProperty->stdOrientation()*randomGenerator.nextGaussian()*dTime;
+        // orientationActual += poseProperty->stdOrientation()*randomGenerator.nextGaussian()*dTime;
         
         orientationActual = Pose::normalizeOrientaion(orientationActual);
         state.orientation(orientationActual);
@@ -102,16 +102,22 @@ namespace loc{
         
         // commented out by Chris
         if(relativeVelocity()>0){
-            v += randomGenerator.nextTruncatedGaussian(relativeVelocity(),                  // change relative velocity later?
+            /*v += randomGenerator.nextTruncatedGaussian(relativeVelocity(),                  // change relative velocity later?
                                                        poseProperty->diffusionVelocity()*dTime,
                                                        poseProperty->minVelocity(),
-                                                       poseProperty->maxVelocity());
+                                                       poseProperty->maxVelocity());*/
             
+            state.velocity(v);
         }
-        state.velocity(v);
+        // commented out by Chris
+        // state.velocity(v);
         
         
         // Update in-plane coordinate.
+        /*double x = state.x() + state.vx() * dTime;
+        double y = state.y() + state.vy() * dTime;*/
+        
+        // Yanda's dt of 0.2 s
         double x = state.x() + state.vx() * dTime;
         double y = state.y() + state.vy() * dTime;
         
