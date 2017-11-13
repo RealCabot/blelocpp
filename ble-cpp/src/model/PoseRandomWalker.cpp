@@ -118,8 +118,8 @@ namespace loc{
         double y = state.y() + state.vy() * dTime;*/
         
         // Yanda's dt of 0.2 s
-        double x = state.x() + state.vx() * dTime;
-        double y = state.y() + state.vy() * dTime;
+        double x = state.x() + state.vx() * 0.2;
+        double y = state.y() + state.vy() * 0.2;
         
         State statePred(state);
         statePred.x(x);
