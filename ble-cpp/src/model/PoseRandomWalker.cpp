@@ -100,9 +100,9 @@ namespace loc{
             v = nV * velocityRate() * turningVelocityRate;
         }
         
-        // commented out by Chris
+        // commented out by Chris, took away the added Gaussian noise
         if(relativeVelocity()>0){
-            /*v += randomGenerator.nextTruncatedGaussian(relativeVelocity(),                  // change relative velocity later?
+            /*v += randomGenerator.nextTruncatedGaussian(relativeVelocity(),
                                                        poseProperty->diffusionVelocity()*dTime,
                                                        poseProperty->minVelocity(),
                                                        poseProperty->maxVelocity());*/
@@ -114,12 +114,8 @@ namespace loc{
         
         
         // Update in-plane coordinate.
-        /*double x = state.x() + state.vx() * dTime;
-        double y = state.y() + state.vy() * dTime;*/
-        
-        // Yanda's dt of 0.2 s
-        double x = state.x() + state.vx() * 0.2;
-        double y = state.y() + state.vy() * 0.2;
+        double x = state.x() + state.vx() * dTime;  // dt is pretty much 0.2s anyways
+        double y = state.y() + state.vy() * dTime;
         
         State statePred(state);
         statePred.x(x);
