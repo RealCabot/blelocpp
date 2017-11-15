@@ -48,19 +48,25 @@ namespace loc{
         return statesPredicted;
     }
     
+    ////////////////////
+    //                //
+    //  Motion Model  //
+    //                //
+    ////////////////////
     State PoseRandomWalker::predict(State state, SystemModelInput input, EncoderInfo encoderInfo){
         //long timestamp = input.timestamp;
         //long previousTimestamp = input.previousTimestamp;
-        double dTime = (input.timestamp()-input.previousTimestamp())/(1000.0); //[s] Difference in time
         
+        double dTime = (input.timestamp()-input.previousTimestamp())/(1000.0); //[s] Difference in time
         double movLevel = movingLevel();
         double nSteps = mProperty->pedometer()->getNSteps();
         double yaw = mProperty->orientationMeter()->getYaw();
         
-        //std::cout << "predict: dTime=" << dTime << ", nSteps=" << nSteps << std::endl;
+        float vL = encoderInfo.getVelocityL();
+        float vR = encoderInfo.getVelocityR();
         
         // Perturb variables in State
-        if(nSteps>0 || mProperty->doesUpdateWhenStopping() ){
+        if(nSteps > 0 || mProperty->doesUpdateWhenStopping() ){
             state.orientationBias(state.orientationBias() + stateProperty->diffusionOrientationBias()*randomGenerator.nextGaussian()*dTime );
             state.rssiBias(randomGenerator.nextTruncatedGaussian(state.rssiBias(),
                                                                  stateProperty->diffusionRssiBias()*dTime,
@@ -71,10 +77,7 @@ namespace loc{
         // Update orientation
         double previousOrientation = state.orientation();
         double orientationActual = yaw - state.orientationBias();
-        
-        // commented out by Chris, see what happens if you take away the noise
-        // orientationActual += poseProperty->stdOrientation()*randomGenerator.nextGaussian()*dTime;
-        
+        // orientationActual += poseProperty->stdOrientation()*randomGenerator.nextGaussian()*dTime;   // commented out by Chris, see what happens if you take away the noise
         orientationActual = Pose::normalizeOrientaion(orientationActual);
         state.orientation(orientationActual);
         
@@ -88,7 +91,7 @@ namespace loc{
         double nV = state.normalVelocity();
         if(nSteps >0 || mProperty->doesUpdateWhenStopping()){
             // double mean, double std, double min, double max
-            nV = randomGenerator.nextTruncatedGaussian(encoderInfo.getVelocity(),  // used to be state.normalVelocity()
+            nV = randomGenerator.nextTruncatedGaussian(encoderInfo.getVelocityL(),  // used to be state.normalVelocity()
                                                        poseProperty->diffusionVelocity()*dTime,
                                                        poseProperty->minVelocity(),
                                                        poseProperty->maxVelocity());
@@ -107,16 +110,35 @@ namespace loc{
                                                        poseProperty->minVelocity(),
                                                        poseProperty->maxVelocity());*/
             
-            state.velocity(v);
+            //state.velocity(v);
         }
         // commented out by Chris
-        // state.velocity(v);
+        state.velocity(v);
+        // Update in-plane coordinate. OG
+        // double x = state.x() + state.vx() * dTime;
+        // double y = state.y() + state.vy() * dTime;
         
+        /////////////////
+        //  propagate  //
+        /////////////////
+        float l = 0.0125;
+        double x = 0;
+        double y = 0;
+        if (vR == vL) {
+            x = state.x()+vR*cos(orientationActual)*dTime;
+            y = state.y()+vL*cos(orientationActual)*dTime;
+        }
+        else if ( vR == -vL) {
+            x = state.x();
+            y = state.y();
+        }
+        else {
+            R = l/2*(vL+vR)/(vR-vL);
+        }
         
-        // Update in-plane coordinate.
-        double x = state.x() + state.vx() * dTime;  // dt is pretty much 0.2s anyways
-        double y = state.y() + state.vy() * dTime;
-        
+        //////////////
+        //  Update  //
+        //////////////
         State statePred(state);
         statePred.x(x);
         statePred.y(y);
