@@ -33,23 +33,22 @@ namespace loc
         private:
             long timeStamp_;
             float position_;
-            float velocity_ = 1.0;  // m/s
-            // float veloThresh;
+            float velocityL_ = 1.0;  // m/s
+            float velocityR_ = 1.0;  // m/s
         
         public:
-            EncoderInfo(long timestamp, float position, float velocity);
+            EncoderInfo(long timestamp, float position, float velocityL, float velocityR);
             ~EncoderInfo();
         
             long  getTimeStamp() const;
             float getPosition() const;
-            float getVelocity() const;
-            /*double ax() const;
-            double ay() const;
-            double az() const;*/
-        
+            float getVelocityL() const;
+            float getVelocityR() const;
+
             EncoderInfo* setTimeStamp(long timestamp);
             EncoderInfo* setPosition(float position);
-            EncoderInfo* setVelocity(float velocity);
+            EncoderInfo* setVelocityL(float velocity);
+            EncoderInfo* setVelocityR(float velocity);
         
             //friend std::ostream& operator<<(std::ostream&os, const Acceleration& acc);
     };

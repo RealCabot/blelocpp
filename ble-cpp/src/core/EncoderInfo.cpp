@@ -10,10 +10,11 @@
 
 namespace loc
 {
-    EncoderInfo::EncoderInfo(long timestamp, float position, float velocity){
+    EncoderInfo::EncoderInfo(long timestamp, float position, float velocityL, float velocityR){
         timeStamp_ = timestamp;
         position_ = position;
-        velocity_ = velocity;
+        velocityL_ = velocityL;
+        velocityR_ = velocityR;
     }
     
     EncoderInfo::~EncoderInfo(){}
@@ -28,8 +29,13 @@ namespace loc
         return this;
     }
     
-    EncoderInfo* EncoderInfo::setVelocity(float velocity){
-        this->velocity_ = velocity;
+    EncoderInfo* EncoderInfo::setVelocityL(float velocity){
+        this->velocityL_ = velocity;
+        return this;
+    }
+    
+    EncoderInfo* EncoderInfo::setVelocityR(float velocity){
+        this->velocityR_ = velocity;
         return this;
     }
     
@@ -41,7 +47,11 @@ namespace loc
         return position_;
     }
     
-    float EncoderInfo::getVelocity() const{
-        return velocity_;
+    float EncoderInfo::getVelocityL() const{
+        return velocityL_;
+    }
+    
+    float EncoderInfo::getVelocityR() const{
+        return velocityR_;
     }
 }
