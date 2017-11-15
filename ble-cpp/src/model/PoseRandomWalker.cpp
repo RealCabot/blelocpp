@@ -133,7 +133,7 @@ namespace loc{
             y = state.y();
         }
         else {
-            R = l/2*(vL+vR)/(vR-vL);
+            float R = l/2*(vL+vR)/(vR-vL);
         }
         
         //////////////
@@ -142,6 +142,7 @@ namespace loc{
         State statePred(state);
         statePred.x(x);
         statePred.y(y);
+        statePred.orientation(orientationActual); // save previous orientation to find delta later for motion model
         
         return statePred;
     }

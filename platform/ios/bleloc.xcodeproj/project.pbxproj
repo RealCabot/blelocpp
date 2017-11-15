@@ -22,7 +22,7 @@
 
 /* Begin PBXBuildFile section */
 		32EB7B1A1FB28A9000E5CB13 /* EncoderInfo.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 32EB7B181FB28A9000E5CB13 /* EncoderInfo.cpp */; };
-		32EB7B1B1FB28A9000E5CB13 /* EncoderInfo.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 32EB7B191FB28A9000E5CB13 /* EncoderInfo.hpp */; };
+		32EB7B1B1FB28A9000E5CB13 /* EncoderInfo.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 32EB7B191FB28A9000E5CB13 /* EncoderInfo.hpp */; settings = {ATTRIBUTES = (Public, ); }; };
 		634B3C690684C08A0572FBE0 /* libPods-blelocjni.a in Frameworks */ = {isa = PBXBuildFile; fileRef = BC1A73BB7CF5381110A675C3 /* libPods-blelocjni.a */; };
 		7E6F25371C0F1D76007A97A1 /* BaseBeaconFilter.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 7E6F24C61C0F1D76007A97A1 /* BaseBeaconFilter.hpp */; settings = {ATTRIBUTES = (Public, ); }; };
 		7E6F25381C0F1D76007A97A1 /* BaseBeaconFilter.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 7E6F24C61C0F1D76007A97A1 /* BaseBeaconFilter.hpp */; };
