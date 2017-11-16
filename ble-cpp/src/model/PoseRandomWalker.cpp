@@ -77,7 +77,7 @@ namespace loc{
         // Update orientation
         double previousOrientation = state.orientation();
         double orientationActual = yaw - state.orientationBias();
-        // orientationActual += poseProperty->stdOrientation()*randomGenerator.nextGaussian()*dTime;   // commented out by Chris, see what happens if you take away the noise
+        // orientationActual += poseProperty->stdOrientation()*randomGenerator.nextGaussian()*dTime;   // commented out by Chris
         orientationActual = Pose::normalizeOrientaion(orientationActual);
         state.orientation(orientationActual);
         
@@ -90,7 +90,6 @@ namespace loc{
         double v = 0.0;
         double nV = state.normalVelocity();
         if(nSteps >0 || mProperty->doesUpdateWhenStopping()){
-            // double mean, double std, double min, double max
             nV = randomGenerator.nextTruncatedGaussian(encoderInfo.getVelocityL(),  // used to be state.normalVelocity()
                                                        poseProperty->diffusionVelocity()*dTime,
                                                        poseProperty->minVelocity(),
@@ -103,17 +102,16 @@ namespace loc{
             v = nV * velocityRate() * turningVelocityRate;
         }
         
-        // commented out by Chris, took away the added Gaussian noise
-        if(relativeVelocity()>0){
+        if(relativeVelocity()>0){  // commented out by Chris
             /*v += randomGenerator.nextTruncatedGaussian(relativeVelocity(),
                                                        poseProperty->diffusionVelocity()*dTime,
                                                        poseProperty->minVelocity(),
                                                        poseProperty->maxVelocity());*/
             
-            //state.velocity(v);
+            state.velocity(v);
         }
         // commented out by Chris
-        state.velocity(v);
+        // state.velocity(v);
         // Update in-plane coordinate. OG
         // double x = state.x() + state.vx() * dTime;
         // double y = state.y() + state.vy() * dTime;
@@ -160,7 +158,6 @@ namespace loc{
         return statePred;
     }
 
-    
     double PoseRandomWalker::movingLevel(){
         if(isUnderControll){
             return mMovement;
@@ -169,5 +166,4 @@ namespace loc{
             return mProperty->pedometer()->getNSteps();
         }
     }
-    
 }

@@ -364,16 +364,16 @@ namespace loc{
             processResetStatus();
         }
         
-        void predictMotionState(long timestamp){
+        void predictMotionState(long timestamp){ // pass in states as well
             initializeStatusIfZero();
 
-            if(previousTimestampMotion==0){
+            if(previousTimestampMotion == 0){
                 previousTimestampMotion = timestamp;
                 return;
             }
 
             SystemModelInput input;
-            EncoderInfo encoderInfo(timestamp, 0, 1.0);  // mustchange
+            EncoderInfo encoderInfo(timestamp, 0, 0.5, 0.5);  // mustchange
             input.timestamp(timestamp);
             input.previousTimestamp(previousTimestampMotion);
 

@@ -73,11 +73,10 @@ namespace loc{
     
     class StateProperty{
         
-        double meanRssiBias_ = 0.0; // [dBm/s]
-        double stdRssiBias_ = 0.0; // [dBm/s]
-        double diffusionRssiBias_ = 0.0; // [dBm/s]
+        double meanRssiBias_ = 0.0;                         // [dBm/s]
+        double stdRssiBias_ = 0.0;                          // [dBm/s]
+        double diffusionRssiBias_ = 0.0;                    // [dBm/s]
         double diffusionOrientationBias_ = 10.0/180.0*M_PI; // [radian/s]
-        
         double minRssiBias_ = -10;
         double maxRssiBias_ = 10;
         

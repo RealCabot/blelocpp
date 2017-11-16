@@ -34,7 +34,6 @@ namespace loc {
     class Pose;
     using Poses = std::vector<Pose> ;
     
-    
     class Pose : public Location{
         
     private:

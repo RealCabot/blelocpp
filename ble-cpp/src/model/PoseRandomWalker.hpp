@@ -86,7 +86,6 @@ namespace loc{
         PoseRandomWalkerProperty::Ptr mProperty = PoseRandomWalkerProperty::Ptr(new PoseRandomWalkerProperty);
         
     public:
-        
         PoseRandomWalker() = default;
         virtual ~PoseRandomWalker() = default;
                 

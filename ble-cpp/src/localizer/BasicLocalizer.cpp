@@ -126,7 +126,8 @@ namespace loc{
                 // accTmp.ax(0.0)->ay(0.0)->az(0.0);
                 // disable speed and position instead?
                 accTmp.setPosition(0);
-                accTmp.setVelocity(0);
+                accTmp.setVelocityL(0);
+                accTmp.setVelocityR(0);
             }
             if(mLocationStatus==Status::STABLE or mLocationStatus==Status::UNSTABLE){
                 mLocalizer->putAcceleration(accTmp);
