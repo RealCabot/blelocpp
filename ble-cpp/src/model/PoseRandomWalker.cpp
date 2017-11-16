@@ -124,16 +124,29 @@ namespace loc{
         float l = 0.0125;
         double x = 0;
         double y = 0;
+        double the = 0;
+        // case 1
         if (vR == vL) {
             x = state.x()+vR*cos(orientationActual)*dTime;
             y = state.y()+vL*cos(orientationActual)*dTime;
+            // the = state.orientation();
         }
+        // case 2
         else if ( vR == -vL) {
             x = state.x();
             y = state.y();
+            // the = state.orientation() + 2*vR*dTime/l;
         }
+        // case 3
         else {
             float R = l/2*(vL+vR)/(vR-vL);
+            float wdt = (orientationActual - state.orientation())/l;
+            float ICCx = state.x() - R*sin(orientationActual);
+            float ICCy = state.y() + R*cos(orientationActual);
+            
+            x = cos(wdt)*(state.x()-ICCx) - sin(wdt)*(y-ICCy) + ICCx;
+            y = sin(wdt)*(state.x()-ICCx) + cos(wdt)*(y-ICCy) + ICCy;
+            // the = state.orientation() + wdt;
         }
         
         //////////////
