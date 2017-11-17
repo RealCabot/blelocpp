@@ -129,7 +129,7 @@ namespace loc{
                 accTmp.setVelocity(0);
             }
             if(mLocationStatus==Status::STABLE or mLocationStatus==Status::UNSTABLE){
-                mLocalizer->putAcceleration(accTmp);
+                mLocalizer->putAcceleration(accTmp);  // mLocalizer is streamparticle filter
             }
         }
         return *this;

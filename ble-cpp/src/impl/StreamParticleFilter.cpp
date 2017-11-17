@@ -365,10 +365,10 @@ namespace loc{
         }
         
         // void predictMotionState(long timestamp){
-        void predictMotionState(EncoderInfo encoderInfo){  // used to pass in timestamp only
+        void predictMotionState(EncoderInfo encoderInfo){
             long timestamp = encoderInfo.getTimeStamp();
             initializeStatusIfZero();
-
+            
             if(previousTimestampMotion==0){
                 previousTimestampMotion = timestamp;
                 return;
