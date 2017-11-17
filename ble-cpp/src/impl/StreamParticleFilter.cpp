@@ -349,7 +349,7 @@ namespace loc{
 
             // TODO (Tentative implementation)
             if(accelerationIsUpdated && attitudeIsUpdated){
-                predictMotionState(encoderInfo.getTimeStamp());
+                predictMotionState(encoderInfo);  // used to pass in timestamp only
             }
 
         }
@@ -364,7 +364,9 @@ namespace loc{
             processResetStatus();
         }
         
-        void predictMotionState(long timestamp){
+        // void predictMotionState(long timestamp){
+        void predictMotionState(EncoderInfo encoderInfo){  // used to pass in timestamp only
+            long timestamp = encoderInfo.getTimeStamp();
             initializeStatusIfZero();
 
             if(previousTimestampMotion==0){
@@ -373,7 +375,7 @@ namespace loc{
             }
 
             SystemModelInput input;
-            EncoderInfo encoderInfo(timestamp, 0, 1.0);  // mustchange
+            // EncoderInfo encoderInfo(timestamp, 0, currSpeed);  // mustchange !!!!!!
             input.timestamp(timestamp);
             input.previousTimestamp(previousTimestampMotion);
 
