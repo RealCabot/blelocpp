@@ -1,6 +1,6 @@
 Pod::Spec.new do |s|
   s.name         = "bleloc"
-  s.version      = "1.5.3"
+  s.version      = "1.5.6-Chris"
   s.summary      = "Localization library"
   s.homepage     = "https://github.com/realCabot/"
   s.description  = <<-DESC
@@ -9,7 +9,7 @@ This is a localization library for bluetooth le beacons.
 
   s.license      = "MIT"
   s.author    = "realCabot"
-  s.source       = { :http => "http://github.com/RealCabot/blelocpp/releases/download/1.5.3/bleloc.framework.zip" }
+  s.source       = { :http => "http://github.com/RealCabot/blelocpp/releases/download/1.5.6-Chris/bleloc.framework.zip" }
   s.preserve_path = "bleloc.framework"
   s.vendored_frameworks = "bleloc.framework"
   s.platforms = {:ios => "8.4"}
