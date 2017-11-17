@@ -87,10 +87,12 @@ namespace loc{
         double turningVelocityRate = std::sqrt(1.0 - std::min(1.0, std::pow(oriDiff/angularVelocityLimit,2)));
         
         // Perturb variables in Pose
+        float averageVelocity = (encoderInfo.getVelocityL() + encoderInfo.getVelocityR())/2;  // 
+        
         double v = 0.0;
         double nV = state.normalVelocity();
         if(nSteps >0 || mProperty->doesUpdateWhenStopping()){
-            nV = randomGenerator.nextTruncatedGaussian(encoderInfo.getVelocityL(),  // used to be state.normalVelocity()
+            nV = randomGenerator.nextTruncatedGaussian(averageVelocity,  // used to be state.normalVelocity()
                                                        poseProperty->diffusionVelocity()*dTime,
                                                        poseProperty->minVelocity(),
                                                        poseProperty->maxVelocity());
