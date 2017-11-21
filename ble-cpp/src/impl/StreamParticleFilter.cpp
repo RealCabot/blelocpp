@@ -349,7 +349,7 @@ namespace loc{
 
             // TODO (Tentative implementation)
             if(accelerationIsUpdated && attitudeIsUpdated){
-                predictMotionState(encoderInfo.getTimeStamp());
+                predictMotionState(encoderInfo, encoderInfo.getTimeStamp());
             }
 
         }
@@ -364,7 +364,7 @@ namespace loc{
             processResetStatus();
         }
         
-        void predictMotionState(long timestamp){
+        void predictMotionState(EncoderInfo encoder, long timestamp){
             initializeStatusIfZero();
 
             if(previousTimestampMotion==0){
