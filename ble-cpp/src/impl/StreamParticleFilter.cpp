@@ -370,7 +370,7 @@ namespace loc{
         // void predictMotionState(long timestamp){
         void predictMotionState(EncoderInfo encoderInfo, long timestamp){
             
-            EncoderInfo yanda(timestamp, 0, encoderInfo.getVelocity());
+            EncoderInfo yanda(timestamp, 0, 1);
             
             initializeStatusIfZero();
             
