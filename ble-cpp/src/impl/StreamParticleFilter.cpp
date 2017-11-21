@@ -347,9 +347,12 @@ namespace loc{
             mPedometer->putAcceleration(encoderInfo);
             accelerationIsUpdated = mPedometer->isUpdated();
 
+            /*std::cout << "Yanda acc: " << accelerationIsUpdated << " WOW WOW" << std::endl;
+            std::cout << "Yanda att: " << attitudeIsUpdated << " WOW WOW WOW" << std::endl;*/
+            
             // TODO (Tentative implementation)
             if(accelerationIsUpdated && attitudeIsUpdated){
-                predictMotionState(encoderInfo);  // used to pass in timestamp only
+                predictMotionState(encoderInfo, encoderInfo.getTimeStamp());  // used to pass in timestamp only
             }
 
         }
@@ -365,9 +368,15 @@ namespace loc{
         }
         
         // void predictMotionState(long timestamp){
-        void predictMotionState(EncoderInfo encoderInfo){
-            long timestamp = encoderInfo.getTimeStamp();
+        void predictMotionState(EncoderInfo encoderInfo, long timestamp){
+            
+            EncoderInfo yanda(timestamp, 0, encoderInfo.getVelocity());
+            
             initializeStatusIfZero();
+            
+            // grab the working parts of the encoder
+            // float velocity = encoderInfo.getVelocity();
+            // EncoderInfo realEncoder(timestamp, 0, velocity);
             
             if(previousTimestampMotion==0){
                 previousTimestampMotion = timestamp;
@@ -384,7 +393,7 @@ namespace loc{
             bool timestampIntervalIsValid = (input.timestamp() - input.previousTimestamp()) < timestampIntervalLimit;
             
             if(timestampIntervalIsValid){
-                StatesPtr statesPredicted(new States(mRandomWalker->predict(*states.get(), input, encoderInfo)));
+                StatesPtr statesPredicted(new States(mRandomWalker->predict(*states.get(), input, yanda)));
                 status->states(statesPredicted, Status::PREDICTION);
             }else{
                 std::cout << "Interval between two timestamps is too large. The input at timestamp=" << timestamp << " was not used." << std::endl;
