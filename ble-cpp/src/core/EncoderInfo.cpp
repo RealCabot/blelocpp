@@ -49,6 +49,6 @@ namespace loc
     }
     
     float EncoderInfo::getVelocity() const{
-        return velocity_;
+        return (velocityL_+velocityR_)/2;
     }
 }
