@@ -33,12 +33,12 @@ namespace loc
         private:
             long timeStamp_;
             float position_;
-            float velocity_ = 5.0;  // m/s
+            float velocity_ = 1.0;  // m/s
             // float veloThresh;
         
         public:
-            float velocityL_ = 69;
-            float velocityR_ = 96;
+            // float velocityL_ = 69;
+            // float velocityR_ = 96;
             EncoderInfo(long timestamp, float position, float velocity);
             // EncoderInfo(long timestamp, float position, float velocityL, float velocityR);
             ~EncoderInfo();
