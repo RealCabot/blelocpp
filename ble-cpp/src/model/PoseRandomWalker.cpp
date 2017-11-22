@@ -88,7 +88,7 @@ namespace loc{
         double turningVelocityRate = std::sqrt(1.0 - std::min(1.0, std::pow(oriDiff/angularVelocityLimit,2)));
         
         // Perturb variables in Pose
-        float averageVelocity = (encoderInfo.getVelocityL() + encoderInfo.getVelocityR())/2;  // 
+        float averageVelocity = (encoderInfo.getVelocityL() + encoderInfo.getVelocityR())/2;
         
         double v = 0.0;
         double nV = state.normalVelocity();
@@ -113,7 +113,8 @@ namespace loc{
             
 
         }
-        state.velocity(v);        // commented out by Chris
+        state.velocity(1);        // commented out by Chris
+        
         // state.velocity(v);
         // Update in-plane coordinate. OG
         double x = state.x() + state.vx() * dTime;
