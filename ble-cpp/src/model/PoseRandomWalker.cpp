@@ -77,6 +77,7 @@ namespace loc{
         // Update orientation
         double previousOrientation = state.orientation();
         double orientationActual = yaw - state.orientationBias();
+        
         // orientationActual += poseProperty->stdOrientation()*randomGenerator.nextGaussian()*dTime;   // commented out by Chris
         orientationActual = Pose::normalizeOrientaion(orientationActual);
         state.orientation(orientationActual);
@@ -92,7 +93,7 @@ namespace loc{
         double v = 0.0;
         double nV = state.normalVelocity();
         if(nSteps >0 || mProperty->doesUpdateWhenStopping()){
-            nV = randomGenerator.nextTruncatedGaussian(averageVelocity,  // used to be state.normalVelocity()
+            nV = randomGenerator.nextTruncatedGaussian(encoderInfo.getVelocityL(),  // used to be state.normalVelocity()  //averageVelocity
                                                        poseProperty->diffusionVelocity()*dTime,
                                                        poseProperty->minVelocity(),
                                                        poseProperty->maxVelocity());
@@ -112,16 +113,17 @@ namespace loc{
             
             state.velocity(v);
         }
+        
         // commented out by Chris
         // state.velocity(v);
         // Update in-plane coordinate. OG
-        // double x = state.x() + state.vx() * dTime;
-        // double y = state.y() + state.vy() * dTime;
+         double x = state.x() + state.vx() * dTime;
+         double y = state.y() + state.vy() * dTime;
         
         /////////////////
         //  propagate  //
         /////////////////
-        float l = 0.0125;
+        /*float l = 0.0125;
         double x = 0;
         double y = 0;
         double the = 0;
@@ -147,7 +149,7 @@ namespace loc{
             x = cos(wdt)*(state.x()-ICCx) - sin(wdt)*(y-ICCy) + ICCx;
             y = sin(wdt)*(state.x()-ICCx) + cos(wdt)*(y-ICCy) + ICCy;
             // the = state.orientation() + wdt;
-        }
+        }*/
         
         //////////////
         //  Update  //
@@ -155,7 +157,7 @@ namespace loc{
         State statePred(state);
         statePred.x(x);
         statePred.y(y);
-        statePred.orientation(orientationActual); // save previous orientation to find delta later for motion model
+        // statePred.orientation(orientationActual); // save previous orientation to find delta later for motion model
         
         return statePred;
     }

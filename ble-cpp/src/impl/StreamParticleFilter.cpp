@@ -376,7 +376,9 @@ namespace loc{
             }
 
             SystemModelInput input;
+            
             EncoderInfo encoderInfo(timestamp, 0, encoder.getVelocityL(), encoder.getVelocityR());  // mustchange
+            
             input.timestamp(timestamp);
             input.previousTimestamp(previousTimestampMotion);
 
