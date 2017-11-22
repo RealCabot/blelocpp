@@ -46,7 +46,7 @@ string LogUtil::toString(const Beacons& beacons) {
 string LogUtil::toString(const EncoderInfo& en) {
     std::stringbuf buffer;
     std::ostream os (&buffer);
-    os << "EI," << en.getPosition() << "," << en.getVelocity() << "," << en.getTimeStamp();
+    os << "EI," << en.getPosition() << "," << en.getAvgVelocity() << "," << en.getTimeStamp();
     return buffer.str();
 }
 
