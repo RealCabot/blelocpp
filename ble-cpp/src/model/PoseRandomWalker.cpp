@@ -111,14 +111,13 @@ namespace loc{
                                                        poseProperty->minVelocity(),
                                                        poseProperty->maxVelocity());*/
             
-            state.velocity(v);
+
         }
-        
-        // commented out by Chris
+        state.velocity(v);        // commented out by Chris
         // state.velocity(v);
         // Update in-plane coordinate. OG
-         double x = state.x() + state.vx() * dTime;
-         double y = state.y() + state.vy() * dTime;
+        double x = state.x() + state.vx() * dTime;
+        double y = state.y() + state.vy() * dTime;
         
         /////////////////
         //  propagate  //
