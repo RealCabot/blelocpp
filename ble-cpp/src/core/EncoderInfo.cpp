@@ -16,6 +16,13 @@ namespace loc
         velocity_ = velocity;
     }
     
+    EncoderInfo::EncoderInfo(long timestamp, float position, float velocityL, float velocityR){
+        timeStamp_ = timestamp;
+        position_ = position;
+        velocityL_ = velocityL;
+        velocityR_ = velocityR;
+    }
+    
     EncoderInfo::~EncoderInfo(){}
     
     EncoderInfo* EncoderInfo::setTimeStamp(long timeStamp){
