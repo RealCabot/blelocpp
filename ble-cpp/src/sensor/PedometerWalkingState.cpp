@@ -43,7 +43,7 @@ namespace loc
         }
         
         // need to test this out, don't know what a good threshold is
-        if (encoderInfo.getVelocity() > 0.01) {
+        if ( abs(encoderInfo.getVelocity()) > 0.01 ) {
             nSteps = nStepsConst;
         }
         else {
