@@ -49,10 +49,8 @@ namespace loc{
         
         return ratio;
     }
-    
 
     OrientationMeter& OrientationMeterAverage::putAttitude(Attitude attitude){
-        
         long timestamp = attitude.timestamp();
         
         if(prevTimestamp==0){
