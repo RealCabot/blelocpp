@@ -60,8 +60,9 @@ namespace loc{
         //std::cout << "predict: dTime=" << dTime << ", nSteps=" << nSteps << std::endl;
         
         // Perturb variables in State
-        if(nSteps>0 || mProperty->doesUpdateWhenStopping() ){
-            state.orientationBias(state.orientationBias() + stateProperty->diffusionOrientationBias()*randomGenerator.nextGaussian()*dTime);  // removed by Chris
+        if(nSteps>0 || mProperty->doesUpdateWhenStopping()){
+            state.orientationBias(state.orientationBias());  // removed by Chris  + stateProperty->diffusionOrientationBias()*randomGenerator.nextGaussian()*dTime
+            
             state.rssiBias(randomGenerator.nextTruncatedGaussian(state.rssiBias(),
                                                                  stateProperty->diffusionRssiBias()*dTime,
                                                                  stateProperty->minRssiBias(),
@@ -88,10 +89,11 @@ namespace loc{
         double nV = state.normalVelocity();
         if(nSteps >0 || mProperty->doesUpdateWhenStopping()){
             // double mean, double std, double min, double max
-            nV = randomGenerator.nextTruncatedGaussian(encoderInfo.getVelocity(),  // used to be state.normalVelocity()  // encoderInfo.getVelocity()
+            /*nV = randomGenerator.nextTruncatedGaussian(encoderInfo.getVelocity(),  // used to be state.normalVelocity()  // encoderInfo.getVelocity()
                                                        poseProperty->diffusionVelocity()*dTime,
                                                        poseProperty->minVelocity(),
-                                                       poseProperty->maxVelocity());
+                                                       poseProperty->maxVelocity());*/
+            nV = encoderInfo.getVelocity();
             state.normalVelocity(nV);
         }
         
