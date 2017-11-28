@@ -76,7 +76,7 @@ namespace loc{
         double meanRssiBias_ = 0.0; // [dBm/s]
         double stdRssiBias_ = 0.0; // [dBm/s]
         double diffusionRssiBias_ = 0.0; // [dBm/s]
-        double diffusionOrientationBias_ = 2.0/180.0*M_PI; // [radian/s]
+        double diffusionOrientationBias_ = 2.0/180.0*M_PI; // [radian/s] //Decreased from 10 by Yanda
         
         double minRssiBias_ = -10;
         double maxRssiBias_ = 10;
