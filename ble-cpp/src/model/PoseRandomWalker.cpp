@@ -61,7 +61,7 @@ namespace loc{
         
         // Perturb variables in State
         if(nSteps>0 || mProperty->doesUpdateWhenStopping() ){
-            state.orientationBias(state.orientationBias());  // + stateProperty->diffusionOrientationBias()*randomGenerator.nextGaussian()*dTime  // removed by Chris
+            state.orientationBias(state.orientationBias() + stateProperty->diffusionOrientationBias()*randomGenerator.nextGaussian()*dTime);  // removed by Chris
             state.rssiBias(randomGenerator.nextTruncatedGaussian(state.rssiBias(),
                                                                  stateProperty->diffusionRssiBias()*dTime,
                                                                  stateProperty->minRssiBias(),
