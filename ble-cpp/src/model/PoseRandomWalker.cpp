@@ -80,9 +80,9 @@ namespace loc{
         state.orientation(orientationActual);
         
         // Reduce velocity when turning
-        double oriDiff = Pose::computeOrientationDifference(previousOrientation, orientationActual);
+        /*double oriDiff = Pose::computeOrientationDifference(previousOrientation, orientationActual);
         double angularVelocityLimit = mProperty->angularVelocityLimit();
-        double turningVelocityRate = std::sqrt(1.0 - std::min(1.0, std::pow(oriDiff/angularVelocityLimit,2)));
+        double turningVelocityRate = std::sqrt(1.0 - std::min(1.0, std::pow(oriDiff/angularVelocityLimit,2)));*/
         
         // Perturb variables in Pose
         double v = 0.0;
@@ -99,7 +99,7 @@ namespace loc{
         
         // Update velocity at the moment
         if(nSteps > 0){
-            v = nV * velocityRate() * turningVelocityRate;
+            v = nV * velocityRate(); //* turningVelocityRate;
         }
         
         // commented out by Chris
